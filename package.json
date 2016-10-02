@@ -1,0 +1,14 @@
+{
+  "name": "overreacting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --colors --progress --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markmcdermid/overreacting.git"
+  },
+  "author": "Mark McDermid mmcdermid@gmail.com"
+}
