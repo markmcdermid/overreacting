@@ -13,6 +13,14 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 loaders: ['react-hot', 'babel-loader'],
                 include: path.join(__dirname, 'src')
+            },
+            {
+                test: /\.scss$/,
+                loader: 'style!css?localIdentName=[path][name]--[local]!sass',
+            },
+            {
+                test: /\.(jpg|png)$/,
+                loader: 'url-loader?limit=8192',
             }
         ]
     },
