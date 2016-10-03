@@ -1,6 +1,7 @@
-const arrowFunction = () => {
-    console.log(4);
-}
+import ReactDom from 'react-dom';
+import React from 'react';
+import App from './App';
 
-arrowFunction();
+ReactDom.render(<App/>, document.getElementById('root'));
+
 
