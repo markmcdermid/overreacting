@@ -8,9 +8,9 @@ const NowPlaying = ({nowPlaying: np}) => {
         <div className="details">
           <img src={require('../../../img/' + np.img)} />
           <div className="details-text">
-            <p className="title">X {np.title}</p>
-            <p className="artist">X {np.artist}</p>
-            <p className="requestedBy">X {np.requestedBy}</p>
+            <p className="title">{np.title}</p>
+            <p className="artist">{np.artist}</p>
+            <p className="requestedBy">{np.requestedBy}</p>
           </div>
         </div>
       </div>
