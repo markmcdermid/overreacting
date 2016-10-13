@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default ({type, song, children}) => {
-  console.log(children);
   const className = `SongDetails ${type ? `SongDetails--${type}` : ''}`;
   return (
     <div className={className}>

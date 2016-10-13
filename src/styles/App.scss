@@ -182,30 +182,6 @@ p {
   }
 }
 
-select {
-  // TODO IE Appearance ^^
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: $bgLighter;
-  border-radius: 0;
-  color: $lightText;
-  font-size: 1.6rem;
-  height: 4.2rem;
-  padding: 1rem 2.5rem;
-  position: relative;
-  option {
-    background-color: $bgLighter;
-    color: $lightText;
-  }
-
-  &::after {
-    content: 'v';
-    color: white;
-    position: absolute;
-    right: 0;
-  }
-}
-
 .queue {
 
   .table {
@@ -217,6 +193,37 @@ select {
   }
 }
 
+.select-group {
+  select {
+    // TODO IE Appearance ^^
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: $bgLighter;
+    border-radius: 0;
+    color: $lightText;
+    font-size: 1.6rem;
+    height: 4.2rem;
+    padding: 1rem 2.5rem;
+    position: relative;
+    option {
+      background-color: $bgLighter;
+      color: $lightText;
+    }
+
+    &::after {
+      content: 'v';
+      color: white;
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+.select--full-width {
+  width: 100%;
+}
+
 .playListSelector {
   float: right;
+  width: 25%;
 }

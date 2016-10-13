@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default ({ playlists, changePlaylist }) => (
+const PlaylistSelector = ({ playlists, selectPlaylist }) => (
   <div className="PlaylistSelector select-group">
-    <select onChange={changePlaylist}>
+    <select className="select--full-width" onChange={e => selectPlaylist(e.target.value)}>
       { playlists.map(p => (
         <option>{p}</option>
       ))
@@ -10,3 +10,5 @@ export default ({ playlists, changePlaylist }) => (
     </select>
   </div>
 );
+
+export default PlaylistSelector;

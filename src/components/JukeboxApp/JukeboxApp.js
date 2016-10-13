@@ -49,11 +49,9 @@ class JukeboxApp extends Component {
 
   timer = setInterval(this.tick, 1000);
 
-  changePlaylist = (e) => {
-    console.log(e.target.value);
-    console.log(this);
-
-    this.setState({ currentPlaylist: e.target.value });
+  selectPlaylist = (playlist) => {
+    // TODO API Call, set state on success.
+    this.setState({ currentPlaylist: playlist });
   }
 
   addToQueue = (newTitle) => {
@@ -74,7 +72,7 @@ class JukeboxApp extends Component {
         <div className="main-content">
           <NowPlaying nowPlaying={this.state.nowPlaying} nextPlaying={this.state.queue[0]} />
           <Request addToQueue={this.addToQueue} />
-          <Queue queue={this.state.queue} playlists={this.state.playlists} changePlaylist={this.changePlaylist} />
+          <Queue queue={this.state.queue} playlists={this.state.playlists} selectPlaylist={this.selectPlaylist} />
         </div>
         <Footer getNewSong={this.getNewSong} time={{ currentTime: this.state.currentTime, endTime: this.state.endTime }} />
       </div>
