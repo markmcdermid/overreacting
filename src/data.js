@@ -5,6 +5,14 @@ export const nowPlaying = {
   img: 'jayz.jpg'
 };
 
+export const playlists = [
+  '#MondayMotivation',
+  '#TuesdaySomethingDay',
+  '#WednesdayCheese',
+  '#ThrowbackThursday',
+  '#StirFryday'
+];
+
 export const queue = [
   {
     id: 1,

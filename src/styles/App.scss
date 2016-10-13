@@ -1,5 +1,6 @@
 @import '../../node_modules/reset-css/reset';
 @import 'variables';
+@import 'button';
 @import 'footer';
 
 * {
@@ -14,34 +15,68 @@ body, html {
   -webkit-font-smoothing: antialiased;
 }
 
-header, footer, section .inner {
+#root {
   font-size: 1.6rem;
-  padding: 2rem 0;
 }
 
-section .inner {
+.hf {
+  background-color: $bgLighter;
+  border: 0;
+  text-align: center;
+  &__inner {
+    padding: 2rem 0;
+  }
+
+  &--header {
+    border-bottom: .1rem solid $darkest;
+  }
+
+  &--footer {
+    border-bottom: .1rem solid $darkest;
+  }
+}
+
+.hf__inner,
+.component__inner {
+  margin: 0 auto;
+  max-width: 120rem;
+}
+
+.component__inner {
+  .component--section:last-child & {
+    border-bottom: 0;
+  }
+  border-bottom: 1px solid transparentize($greyText, 0.6);
   padding: 4rem 0;
 }
 
-h1 {
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: bold;
+}
+
+.h1 {
   font-size: 2.6rem;
-  font-weight: bold;
   margin-bottom: 2rem;
-  text-transform: uppercase;
 }
 
-header {
-  border-bottom: 1px solid $darkest;
-}
-
-footer {
-  border-top: 1px solid $darkest;
-}
-
-h2 {
+.h2 {
   font-size: 2.2rem;
-  font-weight: bold;
-  margin: 0;
+  margin-bottom: 1.6rem;
+}
+
+.h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.4rem;
+}
+
+.h {
+  &--caps {
+    text-transform: uppercase;
+  }
+
+  &--no-margin {
+    margin: 0;
+  }
 }
 
 p {
@@ -49,9 +84,43 @@ p {
   margin-bottom: 1.4rem;
 }
 
-.input-group {
-  font-size: 0;
-  input[type="text"] {
+.main-content {
+  background: $bgColor;
+  min-height: calc(100vh - 8rem);
+  padding-bottom: 8rem;
+}
+
+.table {
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+
+  td, th {
+    padding: 1.7rem 0;
+  }
+
+  td {
+    font-size: 1.6rem;
+  }
+
+  th {
+    color: $greyText;
+    font-size: 2rem;
+    padding: 1rem 0;
+    text-transform: uppercase;
+  }
+
+  &__img {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 2rem;
+    vertical-align: middle;
+  }
+}
+
+.form {
+  &__input {
     border: 0;
     border-radius: 0.2rem;
     font-size: 1.6rem;
@@ -61,126 +130,93 @@ p {
   }
 }
 
-.btn {
-  background: $actionColor;
-  color: $lightText;
-  font-size: 1.6rem;
-  font-weight: bold;
-  height: 4rem;
-  border: 0;
-  border-radius: 0.2rem;
-
-  &:hover,
-  &:active {
-    background: darken($actionColor, 5%);
-  }
-
-  &:active {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
-  }
+.no-right-br {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-.main-content {
-  background: $bgColor;
-  min-height: calc(100vh - 8rem);
-  padding-bottom: 8rem;
-  section .inner {
-    border-bottom: 1px solid transparentize($greyText, 0.6);
-  }
-
-  section:last-child .inner {
-    border-bottom: 0;
-  }
+.no-left-br {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
-table {
-  width: 100%;
+.inline-top {
+  display: inline-block;
+  vertical-align: top;
 }
 
-td, th {
-  font-weight: bold;
-  padding: 1.7rem 0;
-  text-align: left;
+.inline-middle {
+  display: inline-block;
+  vertical-align: middle;
 }
-
-th {
-  color: $greyText;
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 1rem 0;
-  text-transform: uppercase;
-}
-
-td {
-  font-size: 1.6rem;
-}
-
-.queue {
-  th:first-child {
-    width: 45%;
-  }
-
-  img {
-    display: inline-block;
-    width: 3rem;
-    height: 3rem;
-    margin-right:2rem;
-    vertical-align: middle;
-  }
-}
-
-
 
 .request {
-  input[type="text"] {
-  }
-
-  input[type="text"],
-  .btn {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  input[type="text"] {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  .form__input {
     width: 80%;
   }
 
   .btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     width: 20%;
   }
 }
 
 .now-playing {
-  img, .details-text {
-    display: inline-block;
-    vertical-align: top;
-  }
+  position: relative;
+}
 
-  .details-text {
-    .title,
-    .artist {
-      font-size: 2.6rem;
-    }
-  }
-
+.SongDetails {
   img {
-    width: 30rem;
     height: 30rem;
     margin-right: 3rem;
+    width: 30rem;
   }
 }
 
-header,
-footer {
-  background-color: $bgLighter;
-  text-align: center;
+.SongDetails--next {
+
+  margin-top: 6rem;
+  img {
+    height: 10rem;
+    margin-right: 1.5rem;
+    width: 10rem;
+  }
 }
 
-.inner {
-  max-width: 1200px;
-  margin: 0 auto;
+select {
+  // TODO IE Appearance ^^
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: $bgLighter;
+  border-radius: 0;
+  color: $lightText;
+  font-size: 1.6rem;
+  height: 4.2rem;
+  padding: 1rem 2.5rem;
+  position: relative;
+  option {
+    background-color: $bgLighter;
+    color: $lightText;
+  }
+
+  &::after {
+    content: 'v';
+    color: white;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.queue {
+
+  .table {
+    margin-top: 7rem;
+  }
+  h1 {
+    float: left;
+    line-height: 4.2rem;
+  }
+}
+
+.playListSelector {
+  float: right;
 }

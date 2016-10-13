@@ -1,28 +1,29 @@
 import React from 'react';
 
-export default ({queue}) => {
-  return (
-    <table>
+export default ({ queue }) => (
+    <table className="table">
+      <colgroup>
+        <col width={100 / 12 * 5 + '%'} />
+        <col width={100 / 12 * 4 + '%'} />
+        <col width={100 / 12 * 3 + '%'} />
+      </colgroup>
       <thead>
-      <tr>
-        <th>Song</th>
-        <th>Artist</th>
-        <th>Requested By</th>
-      </tr>
+        <tr>
+          <th className="table__th">Song</th>
+          <th className="table__th">Artist</th>
+          <th className="table__th">Requested By</th>
+        </tr>
       </thead>
       <tbody>
-      {
-        queue.map((q) => {
-          return (
+        {
+          queue.map(q => (
             <tr key={q.id}>
-              <td><img src={require('../../../img/' + q.img)} alt=""/>{q.title}</td>
-              <td>{q.artist}</td>
-              <td>{q.requestedBy}</td>
+              <td className="table__td"><img className="table__img" alt="" src={require(`../../../img/${q.img}`)} />{q.title}</td>
+              <td className="table__td">{q.artist}</td>
+              <td className="table__td">{q.requestedBy || 'Add To Queue'}</td>
             </tr>
-          )
-        })
-      }
+          ))
+        }
       </tbody>
     </table>
-  )
-}
+);

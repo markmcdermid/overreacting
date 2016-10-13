@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import JukeboxApp from './components/JukeboxApp/JukeboxApp';
+import './styles/App.scss';
 
-import './styles/App.scss'
-
-export default class extends Component {
-  render() {
-    return (<JukeboxApp />)
-  }
-}
+export default () => (
+  <JukeboxApp />
+);
