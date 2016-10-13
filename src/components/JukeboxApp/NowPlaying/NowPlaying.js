@@ -3,15 +3,20 @@ import React, { PropTypes } from 'react';
 import SongDetails from './SongDetails';
 
 
-const NowPlaying = ({nowPlaying: np, nextPlaying: nxp}) => (
+const NowPlaying = ({ nowPlaying, nextPlaying }) => (
   <section className="component--section now-playing">
     <div className="component__inner">
       <h1 className="h1 h--caps">Now Playing</h1>
-      <SongDetails song={np}>
-        {nxp && <SongDetails type="next" song={nxp} />}
+      <SongDetails song={nowPlaying}>
+        {nextPlaying && <SongDetails type="next" song={nextPlaying} />}
       </SongDetails>
-  </div>
+    </div>
   </section>
 );
+
+NowPlaying.propTypes = {
+  nowPlaying: PropTypes.object.isRequired,
+  nextPlaying: PropTypes.object
+};
 
 export default NowPlaying;
