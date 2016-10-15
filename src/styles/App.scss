@@ -129,6 +129,15 @@ p {
   }
 }
 
+.table--inverse {
+  background-color: $lightText;
+  color: $darkest;
+}
+
+.table__td__icon {
+  margin-right: 1rem;
+}
+
 .form {
   &__input {
     border: 0;
@@ -165,8 +174,15 @@ p {
   vertical-align: middle;
 }
 
-.request {
+.table__td--lowlight {
+  color: $greyText;
 
+  &:hover {
+    color: inherit;
+  }
+}
+
+.request {
   .form__input {
     flex-grow: 1;
   }
@@ -188,10 +204,23 @@ p {
 }
 
 .SongDetails {
-  svg {
+
+  &__icon {
+    bottom: 0;
     color: $greyText;
     font-size: 2.4rem;
     margin-right: 1.5rem;
+    position: absolute;
+    left: 0;
+  }
+
+  &__detail {
+    padding-left: 4rem;
+    position: relative;
+  }
+
+  svg {
+    color: $greyText;
   }
 
   img {
@@ -199,30 +228,34 @@ p {
     margin-right: 3rem;
     width: 37rem;
   }
+
+  &__main {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  &--next {
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: auto;
+    img {
+      height: 10rem;
+      margin-right: 1.5rem;
+      width: 10rem;
+    }
+  }
+}
+
+.PlaylistSelector {
+  min-width: 25%;
+
+  select {
+    width: 100%;
+  }
 }
 
 .width--auto {
   width: auto;
-}
-
-.SongDetails {
-  display: flex;
-}
-
-.SongDetails__main {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.SongDetails--next {
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin-top: auto;
-  img {
-    height: 10rem;
-    margin-right: 1.5rem;
-    width: 10rem;
-  }
 }
 
 .a--reset {
@@ -235,6 +268,18 @@ p {
   }
 }
 
+.a--darker {
+  color: $greyText;
+
+  &:hover {
+    color: $lightText;
+  }
+}
+
+.text-underline {
+  border-bottom: .2rem solid;
+  padding-bottom: .2rem;
+}
 .nav {
   position: absolute;
   right: 0;
@@ -263,18 +308,55 @@ p {
   }
 }
 
-.queue {
+.absolute-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
-  .table {
-    margin-top: 7rem;
+
+.icon {
+  &--xs {
+    font-size: 2rem;
   }
-  h1 {
-    float: left;
-    line-height: 4.2rem;
+  &--s {
+    font-size: 2.4rem;
+  }
+  &--m {
+    font-size: 2.8rem;
+  }
+  &--l {
+    font-size: 3.2rem;
+  }
+  &--xl {
+    font-size: 3.6rem;
   }
 }
 
-.select-group {
+.SongList {
+  &__h1 {
+    line-height: 4.2rem;
+    max-width: 73%;
+  }
+
+  &__top {
+    display: flex;
+    min-height: 5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.SearchResults__close {
+  font-size: 3.5rem;
+}
+
+.select-wrap {
   position: relative;
   select {
     // TODO IE Appearance ^^
@@ -285,7 +367,8 @@ p {
     color: $lightText;
     font-size: 1.6rem;
     height: 4.2rem;
-    padding: 1rem 2.5rem;
+    margin: 0;
+    padding: 1rem 3rem 1rem 2rem;
     position: relative;
     option {
       background-color: $bgLighter;
@@ -299,10 +382,24 @@ p {
       right: 0;
     }
   }
+
+  &__icon {
+    bottom: 0;
+    font-size: 2.5rem;
+    padding: 0 2rem;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 .flex {
   display: flex;
+}
+
+.flex--align-items {
+  align-items: center;
 }
 
 .flex--center-all {
@@ -314,21 +411,6 @@ p {
   align-content: center;
 }
 
-.select-group__icon {
-  bottom: 0;
-  font-size: 2.5rem;
-  padding: 0 2rem;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
 .select--full-width {
   width: 100%;
-}
-
-.playListSelector {
-  float: right;
-  width: 25%;
 }

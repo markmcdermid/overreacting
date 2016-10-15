@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer/Footer';
 import NowPlaying from './NowPlaying/NowPlaying';
-import Request from './Request/Request';
-import Queue from './Queue/Queue';
+import RequestASong from './RequestASong/RequestASong';
+import SongList from './SongList/SongList';
 
 import {
   queue,
@@ -12,19 +12,18 @@ import {
   playlists
 } from '../../data';
 
+const searchResults = [...queue];
 const initialState = {
   currentTime: 0,
   endTime: 60,
   queue,
   nowPlaying,
   playlists,
+  searchResults,
   currentPlaylist: playlists[0]
 };
 
 class JukeboxApp extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = initialState;
 
   componentWillUnmount() {
@@ -44,7 +43,7 @@ class JukeboxApp extends Component {
       this.setState(newState);
     }
   }
-  getPlaying = () => {
+  getAGameOfThronesCharacter = () => {
     this.setState({ loading: true });
     // TODO Get Playing From Server (Poll / Socket) and update state.
     fetch(`https://anapioficeandfire.com/api/characters/${Math.floor(Math.random() * 600)}`)
@@ -58,36 +57,57 @@ class JukeboxApp extends Component {
     this.setState({ currentTime: this.state.currentTime + 1 });
     if (this.state.currentTime === this.state.endTime) this.getNewSong();
   }
-  // timer = setInterval(this.tick, 1000);
+  // TODO: Re-Enable: timer = setInterval(this.tick, 1000);
 
   selectPlaylist = (playlist) => {
     // TODO API Call, set state on success.
     this.setState({ currentPlaylist: playlist });
   }
-  addToQueue = (newTitle) => {
+  search = (searchText) => {
+    this.setState({ searchText });
+  }
+  resetSearch = () => {
+    this.setState({ searchText: '' });
+  }
+  addToQueue = (i) => {
+
     const newItem = {
       id: Date.now(),
-      title: newTitle,
+      title: this.state.queue[i].title,
       artist: 'An Artiste.',
       requestedBy: 'You Mate.',
       img: 'cactus.jpg'
     };
+    const sr = [...this.state.searchResults];
+    sr[i].added = true;
+    const q = [...this.state.queue, newItem];
+    this.setState({ queue: q, searchResults: sr });
+
+    // TODO: This will be an api call too, set state on success
     this.setState({ queue: [...this.state.queue, newItem] });
   }
 
   render() {
     console.log(this.props);
-    const { tv, location: { pathname }} = this.props;
+    const { tv, location: { pathname } } = this.props;
     return (
       <div className={tv && 'Jukebox--tv'}>
-        <Header currentRoute={pathname} />
+        <Header currentRoute={pathname}/>
         <div className="main-content">
           {tv
-            ? <NowPlaying nowPlaying={this.state.nowPlaying} nextPlaying={this.state.queue[0]} />
-            : <NowPlaying nowPlaying={this.state.nowPlaying} />
+            ? <NowPlaying nowPlaying={this.state.nowPlaying} nextPlaying={this.state.queue[0]}/>
+            : <NowPlaying nowPlaying={this.state.nowPlaying}/>
           }
-          {tv || <Request addToQueue={this.addToQueue} /> }
-          {tv || <Queue queue={this.state.queue} playlists={this.state.playlists} selectPlaylist={this.selectPlaylist} /> }
+          {tv || <RequestASong search={this.search}/> }
+          {tv || <SongList
+            searchResults={this.state.searchResults}
+            search={this.state.searchText}
+            queue={this.state.queue}
+            playlists={this.state.playlists}
+            selectPlaylist={this.selectPlaylist}
+            addToQueue={this.addToQueue}
+            resetSearch={this.resetSearch}
+          /> }
         </div>
         <Footer
           getNewSong={this.getNewSong}

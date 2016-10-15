@@ -5,16 +5,16 @@ import Button from '../common/Button';
 
 export default class extends Component {
   state = {
-    request: ''
+    searchText: ''
   }
 
-  handleInputChange = e => this.setState({ request: e.target.value });
+  handleInputChange = e => this.setState({ searchText: e.target.value });
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.request) {
-      this.props.addToQueue(this.state.request);
+    if (this.state.searchText) {
+      this.props.search(this.state.searchText);
+      this.setState({ searchText: '' });
     }
-    this.setState({ request: '' });
   }
 
   render() {
@@ -27,7 +27,7 @@ export default class extends Component {
               className="form__input no-right-br"
               onChange={this.handleInputChange}
               placeholder="Search for a track..."
-              value={this.state.request}
+              value={this.state.searchText}
               type="text"
             />
             <Button className="no-left-br" text="Search" iconLeft><IoIosSearchStrong/></Button>
