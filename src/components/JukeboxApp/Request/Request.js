@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { IoIosSearchStrong } from 'react-icons/lib/io';
+
+import Button from '../Button';
 
 export default class extends Component {
   state = {
@@ -19,15 +22,15 @@ export default class extends Component {
       <section className="component--section request">
         <div className="component__inner">
           <h1 className="h1 h--caps">Request A Song</h1>
-          <form className="form" onSubmit={this.handleSubmit}>
+          <form className="form flex" onSubmit={this.handleSubmit}>
             <input
-              className="form__input inline-top no-right-br"
+              className="form__input no-right-br"
               onChange={this.handleInputChange}
               placeholder="Search for a track..."
               value={this.state.request}
               type="text"
             />
-            <button className="btn inline-top no-left-br" type="submit">Search</button>
+            <Button className="no-left-br" text="Search" iconLeft><IoIosSearchStrong/></Button>
           </form>
         </div>
       </section>

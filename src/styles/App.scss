@@ -24,7 +24,7 @@ body, html {
   border: 0;
   text-align: center;
   &__inner {
-    padding: 2rem 0;
+    padding: 3rem 0;
   }
 
   &--header {
@@ -40,6 +40,7 @@ body, html {
 .component__inner {
   margin: 0 auto;
   max-width: 120rem;
+  position: relative;
 }
 
 .component__inner {
@@ -47,31 +48,40 @@ body, html {
     border-bottom: 0;
   }
   border-bottom: 1px solid transparentize($greyText, 0.6);
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
+  width: 100%;
 }
 
 .h1 {
-  font-size: 2.6rem;
-  margin-bottom: 2rem;
+  font-size: 3.2rem;
+  margin-bottom: 3rem;
 }
 
 .h2 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   margin-bottom: 1.6rem;
 }
 
 .h3 {
-  font-size: 1.8rem;
+  font-size: 2.0rem;
   margin-bottom: 1.4rem;
 }
 
 .h {
   &--caps {
     text-transform: uppercase;
+  }
+
+  &--no-weight {
+    font-weight: normal;
+  }
+
+  &--thin {
+    font-weight: 100;
   }
 
   &--no-margin {
@@ -100,7 +110,7 @@ p {
   }
 
   td {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   th {
@@ -145,18 +155,26 @@ p {
   vertical-align: top;
 }
 
+.inline-bottom {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
 .inline-middle {
   display: inline-block;
   vertical-align: middle;
 }
 
 .request {
+
   .form__input {
-    width: 80%;
+    flex-grow: 1;
   }
 
   .btn {
-    width: 20%;
+    align-items: center;
+    display: flex;
+    padding: 0 7rem;
   }
 }
 
@@ -164,22 +182,77 @@ p {
   position: relative;
 }
 
+.icon {
+  color: $greyText;
+  margin-right: 10px;
+}
+
 .SongDetails {
+  svg {
+    color: $greyText;
+    font-size: 2.4rem;
+    margin-right: 1.5rem;
+  }
+
   img {
-    height: 30rem;
+    height: 37rem;
     margin-right: 3rem;
-    width: 30rem;
+    width: 37rem;
   }
 }
 
-.SongDetails--next {
+.width--auto {
+  width: auto;
+}
 
-  margin-top: 6rem;
+.SongDetails {
+  display: flex;
+}
+
+.SongDetails__main {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.SongDetails--next {
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: auto;
   img {
     height: 10rem;
     margin-right: 1.5rem;
     width: 10rem;
   }
+}
+
+.a--reset {
+  color: $lightText;
+  &:visited,
+  &:hover,
+  &:active {
+    color: $lightText;
+  }
+}
+
+.nav {
+  position: absolute;
+  right: 0;
+}
+
+.nav__items {
+  display: flex;
+  flex-flow: nowrap row;
+}
+
+.nav__item {
+  padding: 0 1rem;
+  svg {
+    font-size: 4rem;
+  }
+}
+
+.nav__link--active {
+  color: $greyText !important;
 }
 
 .queue {
@@ -194,6 +267,7 @@ p {
 }
 
 .select-group {
+  position: relative;
   select {
     // TODO IE Appearance ^^
     -webkit-appearance: none;
@@ -217,6 +291,29 @@ p {
       right: 0;
     }
   }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex--center-all {
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-align-content: center;
+  align-content: center;
+}
+
+.select-group__icon {
+  bottom: 0;
+  font-size: 2.5rem;
+  padding: 0 2rem;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .select--full-width {

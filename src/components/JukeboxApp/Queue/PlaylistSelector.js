@@ -1,14 +1,17 @@
 import React from 'react';
 
+import SelectGroup from '../SelectInputGroup';
+
+
 const PlaylistSelector = ({ playlists, selectPlaylist }) => (
-  <div className="PlaylistSelector select-group">
+  <SelectGroup className="PlayListSelector">
     <select className="select--full-width" onChange={e => selectPlaylist(e.target.value)}>
       { playlists.map(p => (
-        <option>{p}</option>
+        <option key={p}>{p}</option>
       ))
       }
     </select>
-  </div>
+  </SelectGroup>
 );
 
 export default PlaylistSelector;
