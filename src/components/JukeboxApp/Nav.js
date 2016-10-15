@@ -9,26 +9,18 @@ const Nav = ({ currentRoute }) => {
   return (
     <nav className="nav">
       <ul className="nav__items">
-        <NavItem><Link
-          className={`a--reset nav__link ${currentRoute === '/' ? 'nav__link--active' : ''}`  }
-          to="/"
-        >
-          <MdPlaylistAdd />
-        </Link>
+        <NavItem active={currentRoute === '/'}>
+          <Link className="a--reset" to="/">
+            <MdPlaylistAdd />
+          </Link>
         </NavItem>
-        <NavItem>
-          <Link
-            className={`a--reset nav__link ${currentRoute === '/tv' ? 'nav__link--active' : ''}`  }
-            to="/tv"
-          >
+        <NavItem active={currentRoute === '/tv'}>
+          <Link className="a--reset" to="/tv">
             <IoIosMonitorOutline />
           </Link>
         </NavItem>
-        <NavItem>
-          <Link
-            className={`a--reset nav__link ${currentRoute === '/admin' ? 'nav__link--active' : ''}`  }
-            to="/admin"
-          >
+        <NavItem active={currentRoute === '/admin'}>
+          <Link className="a--reset" to="/admin">
             <IoIosLockedOutline />
           </Link>
         </NavItem>

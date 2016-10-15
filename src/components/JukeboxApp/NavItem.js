@@ -1,7 +1,7 @@
 import React from 'react';
 
-const NavItem = ({ children }) => (
-  <li className="nav__item a--reset">{children}</li>
+const NavItem = ({ children, active }) => (
+  <li className={`nav__item ${active ? 'nav__item--active' : ''}`}>{children}</li>
 );
 
-export default NavItem
+export default NavItem;
