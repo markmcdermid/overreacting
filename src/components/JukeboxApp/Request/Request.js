@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { IoIosSearchStrong } from 'react-icons/lib/io';
 
-import Button from '../Button';
+import Button from '../common/Button';
 
 export default class extends Component {
   state = {

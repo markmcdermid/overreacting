@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from './Nav';
+import Nav from './common/Nav';
 
 export default ({ currentRoute }) => (
   <header className="hf hf--header">

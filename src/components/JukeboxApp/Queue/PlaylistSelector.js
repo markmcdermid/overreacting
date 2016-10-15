@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SelectGroup from '../SelectInputGroup';
+import SelectGroup from '../common/SelectGroup';
 
 
 const PlaylistSelector = ({ playlists, selectPlaylist }) => (
