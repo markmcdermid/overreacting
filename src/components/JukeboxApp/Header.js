@@ -1,7 +1,7 @@
 import React from 'react';
 import Nav from './common/Nav';
 
-export default ({ currentRoute }) => (
+const Header = ({ currentRoute }) => (
   <header className="hf hf--header">
     <div className="hf__inner">
       <Nav currentRoute={currentRoute} />
@@ -9,3 +9,5 @@ export default ({ currentRoute }) => (
     </div>
   </header>
 );
+
+export default Header;

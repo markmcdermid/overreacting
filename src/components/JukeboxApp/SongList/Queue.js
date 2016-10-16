@@ -2,7 +2,7 @@ import React from 'react';
 import QueueTable from './QueueTable';
 import PlaylistSelector from './PlaylistSelector';
 
-export default ({ queue, playlists, selectPlaylist }) => {
+const Queue = ({ queue, playlists, selectPlaylist }) => {
   return (
     <div className="Queue">
       <div className="SongList__top flex flex--align-items">
@@ -15,3 +15,5 @@ export default ({ queue, playlists, selectPlaylist }) => {
     </div>
   );
 };
+
+export default Queue;

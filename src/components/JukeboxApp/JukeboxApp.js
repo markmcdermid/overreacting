@@ -9,10 +9,10 @@ import SongList from './SongList/SongList';
 import {
   queue,
   nowPlaying,
-  playlists
+  playlists,
+  searchResults
 } from '../../data';
 
-const searchResults = [...queue];
 const initialState = {
   currentTime: 0,
   endTime: 60,
@@ -44,20 +44,15 @@ class JukeboxApp extends Component {
     }
   }
   getAGameOfThronesCharacter = () => {
-    this.setState({ loading: true });
-    // TODO Get Playing From Server (Poll / Socket) and update state.
-    fetch(`https://anapioficeandfire.com/api/characters/${Math.floor(Math.random() * 600)}`)
-      .then(result => result.json().then((data) => {
-        this.setState({ loading: false, name: data.name });
-      }))
-      .catch(e => console.log(e));
+    // fetch(`https://anapioficeandfire.com/api/characters/${Math.floor(Math.random() * 600)}`).then(...)
   }
 
   tick = () => {
     this.setState({ currentTime: this.state.currentTime + 1 });
     if (this.state.currentTime === this.state.endTime) this.getNewSong();
   }
-  // TODO: Re-Enable: timer = setInterval(this.tick, 1000);
+  // TODO: Re-Enable:
+  // timer = setInterval(this.tick, 1000);
 
   selectPlaylist = (playlist) => {
     // TODO API Call, set state on success.
@@ -67,10 +62,9 @@ class JukeboxApp extends Component {
     this.setState({ searchText });
   }
   resetSearch = () => {
-    this.setState({ searchText: '' });
+    this.setState({ searchResults: [...searchResults], searchText: '' });
   }
   addToQueue = (i) => {
-
     const newItem = {
       id: Date.now(),
       title: this.state.queue[i].title,
@@ -78,17 +72,15 @@ class JukeboxApp extends Component {
       requestedBy: 'You Mate.',
       img: 'cactus.jpg'
     };
-    const sr = [...this.state.searchResults];
-    sr[i].added = true;
+    const srs = [ ...this.state.searchResults ];
+    const sr = { ...srs[i] };
+    sr.added = true;
+    srs[i] = sr;
     const q = [...this.state.queue, newItem];
-    this.setState({ queue: q, searchResults: sr });
-
-    // TODO: This will be an api call too, set state on success
-    this.setState({ queue: [...this.state.queue, newItem] });
+    this.setState({ queue: q, searchResults: srs });
   }
 
   render() {
-    console.log(this.props);
     const { tv, location: { pathname } } = this.props;
     return (
       <div className={tv && 'Jukebox--tv'}>

@@ -3,7 +3,7 @@ import { IoIosSearchStrong } from 'react-icons/lib/io';
 
 import Button from '../common/Button';
 
-export default class extends Component {
+class RequestASong extends Component {
   state = {
     searchText: ''
   }
@@ -37,3 +37,5 @@ export default class extends Component {
     )
   }
 }
+
+export default RequestASong;

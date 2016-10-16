@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoPerson, IoMicC, IoMusicNote } from 'react-icons/lib/io';
 
-export default ({ type, song, children }) => {
+const SongDetails = ({ type, song, children }) => {
   return (
     <div className={`SongDetails flex ${type ? `SongDetails--${type}` : ''}`}>
       { type === 'next' && <h1 className="h1 h--caps">Next</h1>}
@@ -20,3 +20,5 @@ export default ({ type, song, children }) => {
     </div>
   );
 };
+
+export default SongDetails;

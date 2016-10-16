@@ -3,7 +3,7 @@ import React from 'react';
 import SearchResults from './SearchResults';
 import Queue from './Queue';
 
-export default ({ queue, playlists, selectPlaylist, addToQueue, search, resetSearch, searchResults }) => {
+const SongList = ({ queue, playlists, selectPlaylist, addToQueue, search, resetSearch, searchResults }) => {
   return (
     <section className="component--section SongList">
       <div className="component__inner">
@@ -15,3 +15,5 @@ export default ({ queue, playlists, selectPlaylist, addToQueue, search, resetSea
     </section>
   );
 };
+
+export default SongList;

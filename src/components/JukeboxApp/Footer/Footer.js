@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import ProgressBar from './ProgressBar';
 
-const footer = (props) => {
+const Footer = (props) => {
   const { time, getNewSong } = props;
   return (
     <footer className="hf hf--footer" onClick={getNewSong}>
@@ -13,4 +13,4 @@ const footer = (props) => {
   );
 };
 
-export default footer;
+export default Footer;

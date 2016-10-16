@@ -57,3 +57,9 @@ export const queue = [
     requestedBy: 'Aaron'
   },
 ];
+
+export const searchResults = queue.map((q) => {
+  const n = { ...q };
+  n.added = false;
+  return n;
+});

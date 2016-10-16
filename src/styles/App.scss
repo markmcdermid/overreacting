@@ -398,6 +398,9 @@ p {
   display: flex;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
 .flex--align-items {
   align-items: center;
 }
