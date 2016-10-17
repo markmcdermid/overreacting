@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 import SongDetails from './SongDetails';
 
-
 const NowPlaying = ({ nowPlaying, nextPlaying }) => (
   <section className="component--section now-playing">
     <div className="component__inner">

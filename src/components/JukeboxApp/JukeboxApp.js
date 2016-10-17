@@ -43,9 +43,13 @@ class JukeboxApp extends Component {
       this.setState(newState);
     }
   }
-  getAGameOfThronesCharacter = () => {
-    // fetch(`https://anapioficeandfire.com/api/characters/${Math.floor(Math.random() * 600)}`).then(...)
+
+  getPlaying = () => {
+    fetch(`http://localhost:3001/playing`)
+      .then(results => results.json())
+      .then(json => console.log(json));
   }
+
 
   tick = () => {
     this.setState({ currentTime: this.state.currentTime + 1 });
@@ -85,7 +89,7 @@ class JukeboxApp extends Component {
     return (
       <div className={tv && 'Jukebox--tv'}>
         <Header currentRoute={pathname}/>
-        <div className="main-content">
+        <div onClick={this.getAGameOfThronesCharacter} className="main-content">
           {tv
             ? <NowPlaying nowPlaying={this.state.nowPlaying} nextPlaying={this.state.queue[0]}/>
             : <NowPlaying nowPlaying={this.state.nowPlaying}/>
