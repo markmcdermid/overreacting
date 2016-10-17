@@ -1,7 +1,5 @@
 import React from 'react';
 import { IoPerson, IoMicC, IoMusicNote } from 'react-icons/lib/io';
-
-
 const getImgUrl = (id) => {
   return 'https://resources.wimpmusic.com/images/' + id.replace(/-/g, '/') + '/' + 320 + 'x' + 320 + '.jpg';
 }
