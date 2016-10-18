@@ -1,5 +1,6 @@
 import React from 'react';
-import Nav from './common/Nav';
+import Nav from '../common/Nav';
+import CantConnect from './CantConnect'
 
 const Header = ({ currentRoute }) => (
   <header className="hf hf--header">

@@ -12,7 +12,7 @@ const SearchTable = (props) => {
     >
       {results.map(r => (
         <tr data-id={r.title} key={r.title}>
-          <Td><img className="table__img" alt="" src={require(`../../../img/${r.img}`)} />{r.title}</Td>
+          <Td><img className="table__img" alt="" src={r.coverSm} />{r.title}</Td>
           <Td>{r.artist}</Td>
           <AddToQueue addToQueue={addToQueue} id={r.id} added={r.added}/>
         </tr>

@@ -2,6 +2,7 @@
 @import 'variables';
 @import 'button';
 @import 'footer';
+@import 'animate';
 
 * {
   box-sizing: border-box;
@@ -94,10 +95,10 @@ p {
   margin-bottom: 1.4rem;
 }
 
-.main-content {
+main {
   background: $bgColor;
-  min-height: calc(100vh - 8rem);
-  padding-bottom: 8rem;
+  height: 100%;
+  padding-bottom: 7.6rem;
 }
 
 .table {
@@ -190,12 +191,9 @@ p {
   .btn {
     align-items: center;
     display: flex;
+    flex-wrap: nowrap;
     padding: 0 7rem;
   }
-}
-
-.now-playing {
-  position: relative;
 }
 
 .icon {
@@ -226,7 +224,7 @@ p {
   img {
     height: 37rem;
     margin-right: 3rem;
-    width: 37rem;
+    width: auto;
   }
 
   &__main {
@@ -239,7 +237,7 @@ p {
     flex-wrap: wrap;
     margin-top: auto;
     img {
-      height: 10rem;
+      height: 10rem !important;
       margin-right: 1.5rem;
       width: 10rem;
     }
@@ -280,6 +278,7 @@ p {
   border-bottom: .2rem solid;
   padding-bottom: .2rem;
 }
+
 .nav {
   position: absolute;
   right: 0;
@@ -313,7 +312,6 @@ p {
   top: 0;
   right: 0;
 }
-
 
 .icon {
   &--xs {
@@ -354,6 +352,30 @@ p {
 
 .SearchResults__close {
   font-size: 3.5rem;
+}
+
+.Jukebox--tv {
+  header {
+    display: none;
+  }
+  .now-playing {
+    height: 100%;
+
+    .SongDetails:not(.SongDetails--next){
+      flex-grow: 1;
+      height: 100%;
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+
+    .component__inner {
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+    }
+  }
 }
 
 .select-wrap {
@@ -401,6 +423,7 @@ p {
 .flex-grow {
   flex-grow: 1;
 }
+
 .flex--align-items {
   align-items: center;
 }
