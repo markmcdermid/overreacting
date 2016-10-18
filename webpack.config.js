@@ -1,36 +1,30 @@
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
+  devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
     './src/index'
   ],
-  module: {
-    loaders: [
-      // TODO: Add autoprefixer etc.
-      {
-        test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'babel-loader'],
-        include: path.join(__dirname, 'src')
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css?localIdentName=[path][name]--[local]!sass',
-      },
-      {
-        test: /\.(jpg|png)$/,
-        loader: 'url-loader?limit=8192',
-      }
-    ]
-  },
   output: {
-    path: __dirname,
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loaders: ['babel'],
+      include: path.join(__dirname, 'src')
+    }, {
+      test: /\.scss$/,
+      loader: 'style!css?localIdentName=[path][name]--[local]!sass',
+    }]
+  }
 };
