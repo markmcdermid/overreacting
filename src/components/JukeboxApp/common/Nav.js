@@ -3,27 +3,25 @@ import { Link }from 'react-router';
 import { IoIosMonitorOutline, IoIosLockedOutline } from 'react-icons/lib/io';
 import { MdPlaylistAdd } from 'react-icons/lib/md';
 
-import NavItem from './NavItem';
-
-const Nav = ({ currentRoute }) => {
+const Nav = () => {
   return (
     <nav className="nav">
       <ul className="nav__items">
-        <NavItem active={currentRoute === '/'}>
-          <Link className="a--reset" to="/">
+        <li className="nav__item">
+          <Link activeClassName="nav__item__link--active" className="a--reset" to="/">
             <MdPlaylistAdd />
           </Link>
-        </NavItem>
-        <NavItem active={currentRoute === '/tv'}>
-          <Link className="a--reset" to="/tv">
+        </li>
+        <li className="nav__item">
+          <Link activeClassName="nav__item__link--active" className="a--reset" to="/tv">
             <IoIosMonitorOutline />
           </Link>
-        </NavItem>
-        <NavItem active={currentRoute === '/admin'}>
-          <Link className="a--reset" to="/admin">
+        </li>
+        <li className="nav__item">
+          <Link activeClassName="nav__item__link--active" className="a--reset" to="/admin">
             <IoIosLockedOutline />
           </Link>
-        </NavItem>
+        </li>
       </ul>
     </nav>
   );

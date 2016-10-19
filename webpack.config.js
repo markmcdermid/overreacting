@@ -1,6 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
+const PATHS = {
+  app: path.join(__dirname, './src')
+};
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -13,6 +17,10 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
+  },
+  resolve: {
+    extensions: ['', '.js', '.json', '.scss'],
+    modulesDirectories: ['node_modules', PATHS.app],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()

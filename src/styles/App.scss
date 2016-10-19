@@ -300,10 +300,10 @@ main {
   }
 }
 
-.nav__item--active {
+.nav__item__link--active {
   &,
   &:hover {
-    color: $actionColor;
+    color: $actionColor !important;
   }
 }
 

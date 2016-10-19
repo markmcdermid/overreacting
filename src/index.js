@@ -1,12 +1,17 @@
 import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { browserHistory } from 'react-router';
 import App from './App';
+import configureStore from './redux/configureStore';
+import getRoutes from './routes';
+
+const store = configureStore(browserHistory);
 
 const rootEl = document.getElementById('root');
 ReactDOM.render(
   <AppContainer>
-    <App />
+    <App history={browserHistory} routes={getRoutes(store)} store={store} />
   </AppContainer>,
   rootEl
 );

@@ -37,7 +37,6 @@ class JukeboxApp extends Component {
     fetch('http://10.6.29.137:3001/playing')
       .then(results => results.json())
       .then((json) => {
-        console.log(json);
         const { nowPlaying, queue } = json;
         this.setState({ error: false, nowPlaying, queue });
       })
@@ -48,7 +47,6 @@ class JukeboxApp extends Component {
     var body = {
       query: searchText
     };
-
 
     body = JSON.stringify(body);
     fetch('http://10.6.29.137:3001/search', {
@@ -77,7 +75,6 @@ class JukeboxApp extends Component {
     this.setState({ searchResults: [], searchText: '' });
   }
   addToQueue = (i) => {
-
     // Ajax call
     const srs = [...this.state.searchResults];
     const sr = { ...srs[i] };
@@ -85,19 +82,6 @@ class JukeboxApp extends Component {
     srs[i] = sr;
     const q = [...this.state.queue, newItem];
     this.setState({ queue: q, searchResults: srs });
-  }
-
-  responseGoogle = (response) => {
-    console.log('google response');
-    fetch('http://10.6.29.137:3001/auth', {
-      method: 'post',
-      body: JSON.stringify(response)
-    })
-      .then((success) => {
-        console.log(success);
-        this.setState({ login: true });
-      })
-      .catch(e => console.log(e))
   }
 
   render() {

@@ -2,7 +2,6 @@ import React from 'react';
 import Table, { Td } from '../common/Table';
 
 const QueueTable = (props) => {
-  console.log(props);
   return (
     <Table
       {...props}
