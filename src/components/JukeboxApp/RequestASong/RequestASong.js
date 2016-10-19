@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { routeActions } from 'redux-simple-router';
 import { IoIosSearchStrong } from 'react-icons/lib/io';
+import { actions as searchActions } from '../../../redux/modules/jukebox/search';
 
 import Button from '../common/Button';
 
 class RequestASong extends Component {
-  state = {
-    searchText: ''
-  }
-
+  state = { searchText: '' }
   handleInputChange = e => this.setState({ searchText: e.target.value });
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.searchText) {
-      const route = `/play/search/${this.state.searchText}`;
-      this.setState({ searchText: ''});
-      this.props.push(route);
+      this.props.search(this.state.searchText);
+      this.setState({ searchText: '' });
     }
   }
 
@@ -33,14 +29,13 @@ class RequestASong extends Component {
               value={this.state.searchText}
               type="text"
             />
-            <Button className="no-left-br" text="Search" iconLeft><IoIosSearchStrong/></Button>
+            <Button className="no-left-br" text="Search" iconLeft><IoIosSearchStrong /></Button>
           </form>
         </div>
       </section>
-    )
+    );
   }
 }
 
-
-const mapDispatchToProps = { push: routeActions.push };
+const mapDispatchToProps = searchActions;
 export default connect(null, mapDispatchToProps)(RequestASong);
