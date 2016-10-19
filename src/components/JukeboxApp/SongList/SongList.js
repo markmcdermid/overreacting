@@ -3,13 +3,13 @@ import React from 'react';
 import SearchResults from './SearchResults';
 import Queue from './Queue';
 
-const SongList = ({ queue, playlists, selectPlaylist, addToQueue, search, resetSearch, searchResults }) => {
+const SongList = ({ queue, categories, selectPlaylist, addToQueue, search, resetSearch, searchResults }) => {
   return (
     <section className="component--section SongList">
       <div className="component__inner">
         { search
           ? <SearchResults results={searchResults} addToQueue={addToQueue} searchText={search} resetSearch={resetSearch} />
-          : <Queue queue={queue} playlists={playlists} selectPlaylist={selectPlaylist} />
+          : <Queue queue={queue} categories={categories} selectPlaylist={selectPlaylist} />
         }
       </div>
     </section>

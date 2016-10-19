@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Footer from './Footer/Footer';
 import NowPlaying from './NowPlaying/NowPlaying';
 import RequestASong from './RequestASong/RequestASong';
 import SongList from './SongList/SongList';
 
+import { actions as jukeboxActions } from '../../redux/modules/jukebox';
+
+const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = jukeboxActions;
 class JukeboxApp extends Component {
   state = {
     currentTime: 0,
@@ -34,13 +38,11 @@ class JukeboxApp extends Component {
   }
 
   getPlaying = () => {
-    fetch('http://10.6.29.137:3001/playing')
+    this.props.getPlayingRequest();
+    fetch('http://localhost:3001/playing')
       .then(results => results.json())
-      .then((json) => {
-        const { nowPlaying, queue } = json;
-        this.setState({ error: false, nowPlaying, queue });
-      })
-      .catch(() => this.setState({ error: true }));
+      .then(json => this.props.getPlayingSuccess(json))
+      .catch(e => this.props.getPlayingFailure(e));
   }
 
   search = (searchText) => {
@@ -85,23 +87,25 @@ class JukeboxApp extends Component {
   }
 
   render() {
-    const { tv } = this.props;
+    const { tv, queue, nowPlaying, categories, currentCategory } = this.props;
+    const nextPlaying = queue[0];
     return (
       <div className={`Jukebox ${tv ? 'Jukebox--tv' : ''}`}>
-          {tv
-            ? <NowPlaying nowPlaying={this.state.nowPlaying} nextPlaying={this.state.queue[0]} />
-            : <NowPlaying nowPlaying={this.state.nowPlaying} />
-          }
-          {tv || <RequestASong search={this.search} /> }
-          {tv || <SongList
-            searchResults={this.state.queue}
-            search={this.state.searchText}
-            queue={this.state.queue}
-            playlists={this.state.playlists}
-            selectPlaylist={this.selectPlaylist}
-            addToQueue={this.addToQueue}
-            resetSearch={this.resetSearch}
-          /> }
+        {tv
+          ? <NowPlaying nowPlaying={nowPlaying} nextPlaying={nextPlaying} />
+          : <NowPlaying nowPlaying={nowPlaying} />
+        }
+        {tv || <RequestASong search={this.search} /> }
+        {tv || <SongList
+          searchResults={queue}
+          queue={queue}
+          categories={categories}
+          currentCategory={currentCategory}
+          search={this.state.searchText}
+          selectPlaylist={this.selectPlaylist}
+          addToQueue={this.addToQueue}
+          resetSearch={this.resetSearch}
+        /> }
         <Footer
           getNewSong={this.getNewSong}
           time={{ currentTime: this.state.currentTime, endTime: this.state.endTime }}
@@ -110,5 +114,9 @@ class JukeboxApp extends Component {
     );
   }
 }
+const mapStateToProps = ({ jukebox }) => {
+  const { queue, nowPlaying, categories, currentCategory, time, isFetching } = jukebox;
+  return { queue, nowPlaying, categories, currentCategory, time, isFetching };
+};
 
-export default JukeboxApp;
+export default connect(mapStateToProps, jukeboxActions)(JukeboxApp);

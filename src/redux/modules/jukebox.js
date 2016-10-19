@@ -1,0 +1,55 @@
+export const GET_PLAYING_REQUEST = 'GET_PLAYING_REQUEST';
+export const GET_PLAYING_SUCCESS = 'GET_PLAYING_SUCCESS';
+export const GET_PLAYING_FAILURE = 'GET_PLAYING_FAILURE';
+
+// Action Creators
+const getPlayingRequest = () => ({ type: GET_PLAYING_REQUEST });
+const getPlayingSuccess = data => ({ type: GET_PLAYING_SUCCESS, data });
+const getPlayingFailure = message => ({ type: GET_PLAYING_FAILURE, message });
+
+// Actions
+export const actions = {
+  getPlayingRequest,
+  getPlayingSuccess,
+  getPlayingFailure
+};
+
+// Reducer
+// ========
+const initialState = {
+  queue: [],
+  nowPlaying: {},
+  currentCategory: '',
+  categories: [],
+  time: {},
+  isFetching: false,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PLAYING_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case GET_PLAYING_SUCCESS:
+      const { queue, nowPlaying, currentCategory, time } = action.data;
+      return {
+        ...state,
+        isFetching: false,
+        queue,
+        nowPlaying,
+        currentCategory,
+        time
+      };
+    case GET_PLAYING_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export default reducer;

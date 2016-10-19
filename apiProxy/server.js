@@ -36,10 +36,15 @@ const mapTrack = (track) => {
   };
 };
 
-const mapBody = (body) => {
+const mapBody = function (body) {
   return {
     queue: body.queue.map(mapTrack),
-    nowPlaying: mapTrack(body.track)
+    nowPlaying: mapTrack(body.track),
+    currentCategory: body.currentCategory,
+    time: {
+      duration: body.track.duration,
+      start: body.trackStartTime
+    }
   };
 };
 
@@ -93,15 +98,5 @@ app.post('/categories', ({ body }, res) => {
     }
   });
 });
-
-
-$scope.chooseCategory = function (category) {
-  $http.post('/api/jukebox/categories', category).success(function (q) {
-    $scope.currentCategory = category;
-  }).error(function (result) {
-    alert(result);
-  });
-};
-
 
 app.listen(3001, () => console.log('Reverse Proxy Listening on 3001'));
