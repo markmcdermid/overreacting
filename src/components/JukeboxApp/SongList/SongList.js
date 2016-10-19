@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import SearchResults from './SearchResults';
 import Queue from './Queue';
 
-const SongList = ({ queue, categories, selectPlaylist, addToQueue, search, resetSearch, searchResults }) => {
-  return (
-    <section className="component--section SongList">
-      <div className="component__inner">
-        { !search
-          ? <SearchResults addToQueue={addToQueue} resetSearch={resetSearch} />
-          : <Queue queue={queue} categories={categories} selectPlaylist={selectPlaylist} />
-        }
-      </div>
-    </section>
-  );
-};
+class SongList extends Component {
+  render() {
+    console.log('pua render');
+    console.log(this.props);
+    console.log(this.props.searchText);
+    return (
+      <section className="component--section SongList">
+        <div className="component__inner">
+          { this.props.searchText
+            ? <SearchResults/>
+            : <Queue />}
+        </div>
+      </section>
+    );
+  }
+}
 
-export default SongList;
+const mapStateToProps = ({ jukebox: { search: { text: searchText } } }) => ({ searchText });
+export default connect(mapStateToProps)(SongList);
+

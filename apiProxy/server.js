@@ -65,12 +65,13 @@ app.get('/playing', (req, res) => {
 });
 
 app.post('/search', ({ body }, res) => {
-
   const opts = {
     uri: 'http://jukebox.leighton.com/api/jukebox/search',
     method: 'POST',
     json: body
   };
+
+
 
   request(opts, (error, response, resBody) => {
     if (!error && response.statusCode == 200) {
@@ -84,7 +85,6 @@ app.post('/search', ({ body }, res) => {
 app.get('/categories', (req, res) => {
   request('http://jukebox.leighton.com/api/jukebox/categories', (err, apiRes) => {
     if (!err && apiRes.statusCode == 200) {
-      console.log(apiRes.body);
       res.send(apiRes.body);
     } else {
       res.status(400).send();
@@ -93,7 +93,6 @@ app.get('/categories', (req, res) => {
 });
 
 app.post('/categories', ({ body }, res) => {
-
   const opts = {
     uri: 'http://jukebox.leighton.com/api/jukebox/categories',
     method: 'POST',

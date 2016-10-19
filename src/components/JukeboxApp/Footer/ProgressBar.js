@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
+import { connect } from 'react-redux';
+
 class ProgressBar extends Component {
   static propTypes = {
     time: PropTypes.shape({
@@ -54,4 +56,5 @@ class ProgressBar extends Component {
   }
 }
 
-export default ProgressBar;
+const mapStateToProps = ({ jukebox: { playing: { time } } }) => ({ time });
+export default connect(mapStateToProps)(ProgressBar);

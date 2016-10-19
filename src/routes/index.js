@@ -4,8 +4,6 @@ import JukeboxApp from '../components/JukeboxApp/JukeboxApp';
 import Login from '../components/JukeboxApp/Login';
 import Layout from '../layouts/Layout';
 
-const JukeboxTV = () => <JukeboxApp tv />;
-
 export default (store) => {
   const checkAuth = (nextState, replace) => {
     const state = store.getState();
@@ -21,9 +19,10 @@ export default (store) => {
     <Route path="/" component={Layout}>
       <Route onEnter={requireAuth}>
         <IndexRoute component={JukeboxApp} />
-        <Route path="tv" component={JukeboxTV} />
       </Route>
-      <Route path="login" onEnter={checkAuth} component={Login} />
+      <Route onEnter={checkAuth}>
+        <Route path="login" component={Login} />
+      </Route>
     </Route>
-  )
+  );
 }

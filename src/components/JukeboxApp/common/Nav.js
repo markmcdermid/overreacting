@@ -8,7 +8,7 @@ const Nav = () => {
     <nav className="nav">
       <ul className="nav__items">
         <li className="nav__item">
-          <Link activeClassName="nav__item__link--active" className="a--reset" to="/">
+          <Link activeClassName="nav__item__link--active" className="a--reset" to="/play">
             <MdPlaylistAdd />
           </Link>
         </li>

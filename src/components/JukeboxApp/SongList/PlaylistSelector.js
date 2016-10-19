@@ -2,15 +2,30 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SelectWrap from '../common/SelectWrap';
 
+import { actions as categoriesActions } from '../../../redux/modules/jukebox/categories';
+
 class PlaylistSelector extends Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-    selectPlaylist: PropTypes.func.isRequired
+    categories: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.getCategories();
+  }
+
+  getCategories = () => {
+    // TODO Refactor To Thunks
+    const { categoriesRequest, categoriesSuccess, categoriesFailure } = this.props;
+    categoriesRequest();
+    fetch('http://localhost:3001/categories')
+      .then(results => results.json())
+      .then(json => categoriesSuccess(json))
+      .catch(e => categoriesFailure(e));
+  }
+
   handleChange = (e) => {
-    console.log(e.target);
-    this.props.selectPlaylist(e.target.value);
+    console.log(e.target.value);
   }
 
   render() {
@@ -25,4 +40,5 @@ class PlaylistSelector extends Component {
 }
 
 const mapStateToProps = ({ jukebox: { categories: { items } } }) => ({ categories: items });
-export default connect(mapStateToProps)(PlaylistSelector);
+const mapDispatchToProps = { ...categoriesActions };
+export default connect(mapStateToProps, mapDispatchToProps)(PlaylistSelector);

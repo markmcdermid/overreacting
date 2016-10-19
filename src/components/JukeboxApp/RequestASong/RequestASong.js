@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { routeActions } from 'redux-simple-router';
 import { IoIosSearchStrong } from 'react-icons/lib/io';
 
 import Button from '../common/Button';
@@ -12,8 +14,9 @@ class RequestASong extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.searchText) {
-      this.props.search(this.state.searchText);
-      this.setState({ searchText: '' });
+      const route = `/play/search/${this.state.searchText}`;
+      this.setState({ searchText: ''});
+      this.props.push(route);
     }
   }
 
@@ -38,4 +41,6 @@ class RequestASong extends Component {
   }
 }
 
-export default RequestASong;
+
+const mapDispatchToProps = { push: routeActions.push };
+export default connect(null, mapDispatchToProps)(RequestASong);
