@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FaPlus, FaCheck } from 'react-icons/lib/fa';
 import { Td } from '../common/Table';
+import addToQueueActions from '../../../redux/modules/jukebox/addToQueue';
 
 const AddToQueue = ({addToQueue, added, id}) => (
   <Td className={added ? '' : 'table__td--lowlight'}>
@@ -10,4 +12,4 @@ const AddToQueue = ({addToQueue, added, id}) => (
   </Td>
 );
 
-export default AddToQueue;
+export default connect(null, addToQueueActions)(AddToQueue);

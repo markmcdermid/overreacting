@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import SongDetails from './SongDetails';
 
 const NowPlaying = (props) => {
-  console.log('Now Playing');
-  console.log(props);
+  console.log('now playing render');
   return (
     <section className="component--section now-playing">
       <div className="component__inner">
         <h1 className="h1 h--caps">Now Playing</h1>
-        <SongDetails song={props.playing.nowPlaying}>
-          {props.playing.queue[0] && <SongDetails type="next" song={props.playing.queue[0]} />}
+        <SongDetails song={props.nowPlaying}>
+          {props.queue[0] && <SongDetails type="next" song={props.queue[0]} />}
         </SongDetails>
       </div>
     </section>
@@ -19,11 +18,9 @@ const NowPlaying = (props) => {
 };
 
 NowPlaying.propTypes = {
-  playing: PropTypes.shape({
-    nowPlaying: PropTypes.object,
-    queue: PropTypes.array
-  })
+  nowPlaying: PropTypes.object.isRequired,
+  queue: PropTypes.arrayOf(PropTypes.object)
 };
 
-const mapStateToProps = ({ jukebox: { playing } }) => ({ playing });
+const mapStateToProps = ({ jukebox: { playing: { nowPlaying, queue } } }) => ({ nowPlaying, queue });
 export default connect(mapStateToProps)(NowPlaying);

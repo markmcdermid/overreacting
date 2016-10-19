@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Footer from './Footer/Footer';
@@ -8,29 +8,20 @@ import SongList from './SongList/SongList';
 
 import { actions as playingActions } from '../../redux/modules/jukebox/playing';
 
-const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = playingActions;
-
-
 class JukeboxApp extends Component {
+  static propTypes = {
+    getPlaying: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
-    this.getPlaying();
+    props.getPlaying();
   }
-
   componentWillUnmount() {
-    // clearInterval(this.pollPlaying);
+    clearInterval(this.pollPlaying);
   }
-  // pollPlaying = setInterval(this.getPlaying, 5000);
 
-  getPlaying = () => {
-    // TODO Refactor To Thunks
-    const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = this.props;
-    getPlayingRequest();
-    fetch('http://localhost:3001/playing')
-      .then(results => results.json())
-      .then(json => getPlayingSuccess(json))
-      .catch(e => getPlayingFailure(e));
-  }
+  pollPlaying = setInterval(this.props.getPlaying, 5000);
+
   render() {
     const tv = undefined;
     return (
@@ -43,10 +34,5 @@ class JukeboxApp extends Component {
     );
   }
 }
-const mapDispatchToProps = {
-  getPlayingRequest,
-  getPlayingSuccess,
-  getPlayingFailure
-};
-
+const mapDispatchToProps = playingActions;
 export default connect(null, mapDispatchToProps)(JukeboxApp);
