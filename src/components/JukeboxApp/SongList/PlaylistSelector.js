@@ -1,16 +1,28 @@
-import React, { PropTypes } from 'react';
-
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import SelectWrap from '../common/SelectWrap';
 
-const PlaylistSelector = ({ categories, selectPlaylist }) => (
-  <SelectWrap className="PlayListSelector">
-    <select onChange={e => selectPlaylist(e.target.value)}>
-      { categories.map(p => (<option key={p}>{p}</option>)) }
-    </select>
-  </SelectWrap>
-);
+class PlaylistSelector extends Component {
+  static propTypes = {
+    categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selectPlaylist: PropTypes.func.isRequired
+  };
 
-PlaylistSelector.propTypes = {
+  handleChange = (e) => {
+    console.log(e.target);
+    this.props.selectPlaylist(e.target.value);
+  }
 
-};
-export default PlaylistSelector;
+  render() {
+    return (
+      <SelectWrap className="PlayListSelector">
+        <select onChange={this.handleChange}>
+          { this.props.categories.map(p => (<option data-id={p._id} key={p._id}>{p.name}</option>)) }
+        </select>
+      </SelectWrap>
+    );
+  }
+}
+
+const mapStateToProps = ({ jukebox: { categories: { items } } }) => ({ categories: items });
+export default connect(mapStateToProps)(PlaylistSelector);

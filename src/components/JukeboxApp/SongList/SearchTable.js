@@ -3,7 +3,7 @@ import Table, { Td } from '../common/Table';
 import AddToQueue from './AddToQueue';
 
 const SearchTable = (props) => {
-  const { results, addToQueue, searchText } = props;
+  const { results, addToQueue } = props;
   return (
     <Table
       {...props}
@@ -11,9 +11,9 @@ const SearchTable = (props) => {
       widths={[5, 4, 3]}
     >
       {results.map(r => (
-        <tr data-id={r.title} key={r.title}>
+        <tr key={r.id}>
           <Td><img className="table__img" alt="" src={r.coverSm} />{r.title}</Td>
-          <Td>{r.artist}</Td>
+          <Td>{r.artists[0].name}</Td>
           <AddToQueue addToQueue={addToQueue} id={r.id} added={r.added}/>
         </tr>
       ))}

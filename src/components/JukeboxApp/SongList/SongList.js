@@ -7,8 +7,8 @@ const SongList = ({ queue, categories, selectPlaylist, addToQueue, search, reset
   return (
     <section className="component--section SongList">
       <div className="component__inner">
-        { search
-          ? <SearchResults results={searchResults} addToQueue={addToQueue} searchText={search} resetSearch={resetSearch} />
+        { !search
+          ? <SearchResults addToQueue={addToQueue} resetSearch={resetSearch} />
           : <Queue queue={queue} categories={categories} selectPlaylist={selectPlaylist} />
         }
       </div>

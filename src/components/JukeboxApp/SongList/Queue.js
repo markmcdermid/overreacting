@@ -3,7 +3,6 @@ import QueueTable from './QueueTable';
 import PlaylistSelector from './PlaylistSelector';
 
 const Queue = ({ queue, categories, selectPlaylist }) => {
-  console.log(categories);
   return (
     <div className="Queue">
       <div className="SongList__top flex flex--align-items">

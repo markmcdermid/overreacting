@@ -2,15 +2,9 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-const loginRequest = () => {
-  return ({ type: LOGIN_REQUEST });
-};
-const loginSuccess = token => {
-  return ({ type: LOGIN_SUCCESS, token });
-};
-const loginFailure = message => {
-  return ({ type: LOGIN_FAILURE, message });
-};
+const loginRequest = () => ({ type: LOGIN_REQUEST });
+const loginSuccess = token => ({ type: LOGIN_SUCCESS, token });
+const loginFailure = message => ({ type: LOGIN_FAILURE, message });
 
 // Actions
 export const actions = {
@@ -19,13 +13,16 @@ export const actions = {
   loginFailure
 };
 
+
 // Reducer
 // ========
 
-const reducer = (state = {
+var initialState = {
   isFetching: false,
   isAuthenticated: !!localStorage.getItem('id_token'),
-}, action) => {
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {

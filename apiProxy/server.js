@@ -7,9 +7,9 @@ const app = express();
 app.use(bodyParser.json());
 
 const getImgUrl = (id, size) => {
-  if (!id) return 'http://placekitten.com/640/640';
-  const resolution = size === 'sm' ? '160x160' : '640x640';
-  return `https://resources.wimpmusic.com/images/${id.replace(/-/g, '/')}/${resolution}.jpg`;
+  const res = size === 'sm' ? '160' : '640';
+  if (!id) return `http://placekitten.com/${res}/${res}`;
+  return `https://resources.wimpmusic.com/images/${id.replace(/-/g, '/')}/${res}x${res}.jpg`;
 };
 
 const mapTrack = (track) => {
@@ -42,8 +42,8 @@ const mapBody = function (body) {
     nowPlaying: mapTrack(body.track),
     currentCategory: body.currentCategory,
     time: {
-      duration: body.track.duration,
-      start: body.trackStartTime
+      duration: body.track.trackData.duration,
+      start: new Date(body.trackStartTime).getTime()
     }
   };
 };
@@ -57,11 +57,10 @@ app.use((req, res, next) => {
 app.get('/playing', (req, res) => {
   request('http://jukebox.leighton.com/api/jukebox/playing', (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      var sendBody = mapBody(JSON.parse(body));
+      const sendBody = mapBody(JSON.parse(body));
       return res.send(sendBody);
-    } else {
-      res.status(response.statusCode || 500).send();
     }
+    return res.status(response.statusCode || 500).send();
   });
 });
 
@@ -82,20 +81,27 @@ app.post('/search', ({ body }, res) => {
   });
 });
 
+app.get('/categories', (req, res) => {
+  request('http://jukebox.leighton.com/api/jukebox/categories', (err, apiRes) => {
+    if (!err && apiRes.statusCode == 200) {
+      console.log(apiRes.body);
+      res.send(apiRes.body);
+    } else {
+      res.status(400).send();
+    }
+  })
+});
+
 app.post('/categories', ({ body }, res) => {
 
-  var opts = {
+  const opts = {
     uri: 'http://jukebox.leighton.com/api/jukebox/categories',
     method: 'POST',
     json: body
   };
 
-  request(opts, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-      res.send(body);
-    } else {
-      res.status(400).send();
-    }
+  request(opts, (error, apiRes) => {
+    return (!error && apiRes.statusCode === 200) ? res.send(apiRes.body) : res.status(400).send();
   });
 });
 

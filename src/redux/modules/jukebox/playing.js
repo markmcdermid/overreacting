@@ -16,13 +16,17 @@ export const actions = {
 
 // Reducer
 // ========
-const initialState = {
+
+var initialState = {
   queue: [],
   nowPlaying: {},
   currentCategory: '',
   categories: [],
-  time: {},
-  isFetching: false,
+  time: {
+    start: new Date().getTime(),
+    duration: 0
+  },
+  isFetching: false
 };
 
 const reducer = (state = initialState, action) => {

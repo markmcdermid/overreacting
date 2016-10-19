@@ -6,13 +6,22 @@ import NowPlaying from './NowPlaying/NowPlaying';
 import RequestASong from './RequestASong/RequestASong';
 import SongList from './SongList/SongList';
 
-import { actions as jukeboxActions } from '../../redux/modules/jukebox';
+import { actions as playingActions } from '../../redux/modules/jukebox/playing';
+import { actions as searchActions } from '../../redux/modules/jukebox/search';
+import { actions as categoriesActions } from '../../redux/modules/jukebox/categories';
 
-const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = jukeboxActions;
+const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = playingActions;
+const { searchRequest, searchSuccess, searchFailure } = searchActions;
+const { categoriesRequest, categoriesSuccess, categoriesFailure } = categoriesActions;
+
 class JukeboxApp extends Component {
+  constructor(props) {
+    super(props);
+    this.getCategories();
+    this.getPlaying();
+  }
+
   state = {
-    currentTime: 0,
-    endTime: 60,
     queue: [],
     nowPlaying: {},
     playlists: [],
@@ -36,37 +45,44 @@ class JukeboxApp extends Component {
       this.setState(newState);
     }
   }
-
-  getPlaying = () => {
-    this.props.getPlayingRequest();
-    fetch('http://localhost:3001/playing')
+  getCategories = () => {
+    const { categoriesRequest, categoriesSuccess, categoriesFailure } = this.props;
+    categoriesRequest();
+    fetch('http://localhost:3001/categories')
       .then(results => results.json())
-      .then(json => this.props.getPlayingSuccess(json))
-      .catch(e => this.props.getPlayingFailure(e));
+      .then(json => categoriesSuccess(json))
+      .catch(e => categoriesFailure(e));
   }
 
+  getPlaying = () => {
+    const { getPlayingRequest, getPlayingSuccess, getPlayingFailure } = this.props;
+    getPlayingRequest();
+    fetch('http://localhost:3001/playing')
+      .then(results => results.json())
+      .then(json => getPlayingSuccess(json))
+      .catch(e => getPlayingFailure(e));
+  }
   search = (searchText) => {
-    var body = {
-      query: searchText
-    };
-
-    body = JSON.stringify(body);
-    fetch('http://10.6.29.137:3001/search', {
+    const { searchRequest, searchSuccess, searchFailure } = this.props;
+    searchRequest(searchText);
+    var opts = {
       method: 'POST',
-      body,
+      body: JSON.stringify({ query: searchText }),
       headers: {
         'Content-Type': 'application/json'
-      },
-    })
-      .then(a => console.log(a))
-      .catch(e => console.log(e));
+      }
+    };
+
+    fetch('http://localhost:3001/search', opts)
+      .then(results => results.json())
+      .then(json => searchSuccess(json))
+      .catch(e => {
+        console.log(e);
+        return searchFailure(e);
+      });
   }
 
   pollPlaying = setInterval(this.getPlaying, 5000);
-  tick = () => {
-    this.setState({ currentTime: this.state.currentTime + 1 });
-    if (this.state.currentTime === this.state.endTime) this.getNewSong();
-  }
 
   selectPlaylist = (playlist) => {
     // TODO API Call, set state on success.
@@ -87,36 +103,45 @@ class JukeboxApp extends Component {
   }
 
   render() {
-    const { tv, queue, nowPlaying, categories, currentCategory } = this.props;
-    const nextPlaying = queue[0];
+    // Prop Items
+    const { tv, queue, nowPlaying, categories, currentCategory, time, isFetching: loadingPlaying } = this.props.playing;
     return (
       <div className={`Jukebox ${tv ? 'Jukebox--tv' : ''}`}>
         {tv
-          ? <NowPlaying nowPlaying={nowPlaying} nextPlaying={nextPlaying} />
+          ? <NowPlaying nowPlaying={nowPlaying} nextPlaying={queue[0]} />
           : <NowPlaying nowPlaying={nowPlaying} />
         }
+
         {tv || <RequestASong search={this.search} /> }
         {tv || <SongList
           searchResults={queue}
           queue={queue}
           categories={categories}
           currentCategory={currentCategory}
-          search={this.state.searchText}
-          selectPlaylist={this.selectPlaylist}
+          search={this.search}
           addToQueue={this.addToQueue}
+          selectPlaylist={this.selectPlaylist}
           resetSearch={this.resetSearch}
         /> }
         <Footer
           getNewSong={this.getNewSong}
-          time={{ currentTime: this.state.currentTime, endTime: this.state.endTime }}
+          time={time}
         />
       </div>
     );
   }
 }
-const mapStateToProps = ({ jukebox }) => {
-  const { queue, nowPlaying, categories, currentCategory, time, isFetching } = jukebox;
-  return { queue, nowPlaying, categories, currentCategory, time, isFetching };
+const mapStateToProps = ({ jukebox: { playing, search } }) => ({ playing, search });
+const mapDispatchToProps = {
+  getPlayingRequest,
+  getPlayingSuccess,
+  getPlayingFailure,
+  searchRequest,
+  searchSuccess,
+  searchFailure,
+  categoriesSuccess,
+  categoriesRequest,
+  categoriesFailure
 };
 
-export default connect(mapStateToProps, jukeboxActions)(JukeboxApp);
+export default connect(mapStateToProps, mapDispatchToProps)(JukeboxApp);
