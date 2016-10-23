@@ -5,13 +5,16 @@ import GoogleLogin from './common/GoogleLogin';
 
 import { actions as authActions } from '../../redux/modules/auth';
 
+// TODO: Add x-token with the token to all auth requests
+// (authresult.idToken) => x-token
+
 class Login extends Component {
   render() {
     return (
       <div>
         <GoogleLogin
           className={`btn ${this.props.loggedIn && 'animate--bounce btn--success'}`}
-          clientId="859078627820-qboh12tbl1vv98ii80gf6oh8dqddn67a.apps.googleusercontent.com"
+          clientId="147711705910-gks81l3kpnuaotd22jn3vcdgobajsdgu.apps.googleusercontent.com"
           onRequest={this.props.loginRequest}
           onSuccess={this.props.loginSuccess}
           onFailure={this.props.loginFailure}

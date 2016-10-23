@@ -1,4 +1,4 @@
-import { fetchGet } from '../../../helpers';
+import { apiGet } from '../../../helpers';
 
 export const GET_PLAYING_REQUEST = 'GET_PLAYING_REQUEST';
 export const GET_PLAYING_SUCCESS = 'GET_PLAYING_SUCCESS';
@@ -13,11 +13,11 @@ const getPlayingFailure = message => ({ type: GET_PLAYING_FAILURE, message });
 const getPlaying = () => {
   return (dispatch) => {
     dispatch(getPlayingRequest());
-    return fetchGet('playing')
+    return apiGet('/playing')
     .then(result => result.json())
     .then(json => dispatch(getPlayingSuccess(json)))
     .catch(e => dispatch(getPlayingFailure(e)));
-  }
+  };
 };
 
 // Actions
@@ -31,7 +31,7 @@ export const actions = {
 // Reducer
 // ========
 
-var initialState = {
+const initialState = {
   queue: [],
   nowPlaying: {},
   currentCategory: '',
@@ -45,12 +45,13 @@ var initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PLAYING_REQUEST:
+    case GET_PLAYING_REQUEST: {
       return {
         ...state,
         isFetching: true,
       };
-    case GET_PLAYING_SUCCESS:
+    }
+    case GET_PLAYING_SUCCESS: {
       const { queue, nowPlaying, currentCategory, time } = action.data;
       return {
         ...state,
@@ -60,11 +61,13 @@ const reducer = (state = initialState, action) => {
         currentCategory,
         time
       };
-    case GET_PLAYING_FAILURE:
+    }
+    case GET_PLAYING_FAILURE: {
       return {
         ...state,
         isFetching: false,
       };
+    }
     default:
       return state;
   }

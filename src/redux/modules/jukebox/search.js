@@ -1,4 +1,4 @@
-import { fetchPost } from '../../../helpers';
+import { apiPost } from '../../../helpers';
 
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
@@ -16,7 +16,7 @@ const search = (searchText) => {
   return (dispatch) => {
     dispatch(searchRequest(searchText));
     const body = { query: searchText };
-    return fetchPost('search', body)
+    return apiPost('/search', body)
       .then(results => results.json())
       .then(json => dispatch(searchSuccess(json)))
       .catch(e => dispatch(searchFailure(e)));
@@ -50,7 +50,6 @@ const reducer = (state = initialState, action) => {
         isFetching: true,
       };
     case SEARCH_SUCCESS:
-      console.log(action.data);
       return {
         ...state,
         results: action.data.tracks.items,

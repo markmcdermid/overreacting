@@ -56,6 +56,9 @@ app.use((req, res, next) => {
 
 app.get('/playing', (req, res) => {
   request('http://jukebox.leighton.com/api/jukebox/playing', (error, response, body) => {
+    if (!response) {
+      return res.status(500).send();
+    }
     if (!error && response.statusCode === 200) {
       const sendBody = mapBody(JSON.parse(body));
       return res.send(sendBody);
@@ -71,10 +74,8 @@ app.post('/search', ({ body }, res) => {
     json: body
   };
 
-
-
   request(opts, (error, response, resBody) => {
-    if (!error && response.statusCode == 200) {
+    if (!error && response.statusCode === 200) {
       res.send(resBody);
     } else {
       res.status(400).send();
@@ -84,12 +85,8 @@ app.post('/search', ({ body }, res) => {
 
 app.get('/categories', (req, res) => {
   request('http://jukebox.leighton.com/api/jukebox/categories', (err, apiRes) => {
-    if (!err && apiRes.statusCode == 200) {
-      res.send(apiRes.body);
-    } else {
-      res.status(400).send();
-    }
-  })
+    return (!err && apiRes.statusCode === 200) ? res.send(apiRes.body) : res.status(400).send();
+  });
 });
 
 app.post('/categories', ({ body }, res) => {

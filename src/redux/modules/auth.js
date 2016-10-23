@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
         isAuthenticated: true,
-        token: action.token,
+        token: action.token.tokenId,
       };
     case LOGIN_FAILURE:
       return {

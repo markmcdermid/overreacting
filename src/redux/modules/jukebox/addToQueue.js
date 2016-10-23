@@ -1,4 +1,5 @@
-import { fetchPost } from '../../../helpers'
+import { apiPost } from '../../../helpers';
+
 export const ADD_TO_QUEUE_REQUEST = 'ADD_TO_QUEUE_REQUEST';
 export const ADD_TO_QUEUE_SUCCESS = 'ADD_TO_QUEUE_SUCCESS';
 export const ADD_TO_QUEUE_FAILURE = 'ADD_TO_QUEUE_FAILURE';
@@ -9,15 +10,17 @@ const addToQueueSuccess = data => ({ type: ADD_TO_QUEUE_SUCCESS, data });
 const addToQueueFailure = message => ({ type: ADD_TO_QUEUE_FAILURE, message });
 
 // Thunks
-const addToQueue = (id) => {
-  return (dispatch) => {
+function addToQueue(id) {
+  return (dispatch, getState) => {
+    const headers = { 'x-token': getState().auth.token };
     dispatch(addToQueueRequest(id));
-    return fetchPost('add', { id })
+    return apiPost('/add', { id }, getState, headers)
       .then(results => results.json())
       .then(json => dispatch(addToQueueSuccess(json)))
       .catch(e => dispatch(addToQueueFailure(e)));
   };
-};
+}
+
 // Actions
 export const actions = {
   addToQueueRequest,
@@ -29,7 +32,7 @@ export const actions = {
 // Reducer
 // ========
 
-var initialState = {
+const initialState = {
   isAdding: false
 };
 

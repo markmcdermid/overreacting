@@ -1,12 +1,13 @@
 import { SERVER_URL, CONTENT_TYPE } from '../config';
 
-export const fetchPost = (endPoint, body) => {
+export const apiPost = (endPoint, body, customHeaders = {}) => {
+  const defaultHeaders = { 'Content-Type': CONTENT_TYPE };
   const opts = {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: { 'Content-Type': CONTENT_TYPE }
+    headers: { ...customHeaders, ...defaultHeaders }
   };
   return fetch(`${SERVER_URL}${endPoint}`, opts);
 };
 
-export const fetchGet = endPoint => fetch(`${SERVER_URL}${endPoint}`);
+export const apiGet = endPoint => fetch(`${SERVER_URL}${endPoint}`);

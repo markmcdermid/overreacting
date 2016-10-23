@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { FaPlus, FaCheck } from 'react-icons/lib/fa';
 import { Td } from '../common/Table';
-import addToQueueActions from '../../../redux/modules/jukebox/addToQueue';
 
-const AddToQueue = ({addToQueue, added, id}) => (
-  <Td className={added ? '' : 'table__td--lowlight'}>
-    <button onClick={() => added || addToQueue(id)}>
-      { added ? <FaCheck className="table__td__icon" /> : <FaPlus className="table__td__icon" />}
-      <span className="text-underline">{added ? 'Added' : 'Add To Queue'}</span></button>
-  </Td>
-);
+class AddToQueue extends Component {
+  isInQueue = (id) => {
+    const { queue } = this.props;
+    return false;
+  }
+  render() {
+    const { addToQueue, id } = this.props;
+    const isInQueue = this.isInQueue(id);
+    return (
+      <Td className={isInQueue ? '' : 'table__td--lowlight'}>
+        <button onClick={() => addToQueue(id)}>
+          { isInQueue ? <FaCheck className="table__td__icon" /> : <FaPlus className="table__td__icon" />}
+          <span className="text-underline">{isInQueue ? 'Added' : 'Add To Queue'}</span>
+        </button>
+      </Td>
+    );
+  }
+}
 
-export default connect(null, addToQueueActions)(AddToQueue);
+AddToQueue.propTypes = {
+  addToQueue: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  queue: PropTypes.arrayOf(PropTypes.object)
+};
+
+const mapStateToProps = ({ jukebox: queue }) => ({ queue });
+
+export default connect(mapStateToProps)(AddToQueue);

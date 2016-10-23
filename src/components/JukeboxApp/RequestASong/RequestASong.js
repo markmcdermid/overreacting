@@ -37,5 +37,4 @@ class RequestASong extends Component {
   }
 }
 
-const mapDispatchToProps = searchActions;
-export default connect(null, mapDispatchToProps)(RequestASong);
+export default connect(null, searchActions)(RequestASong);
