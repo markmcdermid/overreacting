@@ -6,8 +6,8 @@ import Header from '../components/JukeboxApp/Header/Header';
 class Layout extends Component {
   componentWillReceiveProps(nextProps) {
     const { push } = this.props;
-    if (!this.props.loggedIn && nextProps.loggedIn) push('/');
-    if (this.props.loggedIn && !nextProps.loggedIn) push('/login');
+    (!this.props.token && nextProps.token) && push('/');
+    (this.props.token && !nextProps.token) && push('/login');
   }
 
   render() {
@@ -22,6 +22,6 @@ class Layout extends Component {
     )
   }
 }
-const mapStateToProps = ({ auth: { isAuthenticated } }) => ({ loggedIn: isAuthenticated });
+const mapStateToProps = ({ auth: { token } }) => ({ token });
 const mapDispatchToProps = { push: routeActions.push };
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

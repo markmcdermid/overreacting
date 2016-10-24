@@ -17,10 +17,12 @@ export const actions = {
 // Reducer
 // ========
 
-var initialState = {
+const initialState = {
   isFetching: false,
-  isAuthenticated: !!localStorage.getItem('id_token'),
+  token: localStorage.getItem('id_token')
 };
+
+console.log(initialState);
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,20 +30,17 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
-        isAuthenticated: false
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        isAuthenticated: true,
         token: action.token.tokenId,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
-        isAuthenticated: true,
       };
     default:
       return state;

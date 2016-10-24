@@ -1,6 +1,9 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { syncHistory } from 'redux-simple-router';
 import thunk from 'redux-thunk';
+import Cookies from 'js-cookie';
+import { createCookieMiddeware } from 'redux-cookie';
+
 import rootReducer from './rootReducer';
 
 export default function configureStore(history) {
@@ -8,6 +11,7 @@ export default function configureStore(history) {
   const routerMiddleware = syncHistory(history);
   const finalCreateStore = compose(
     applyMiddleware(thunk, routerMiddleware),
+    applyMiddleware(createCookieMiddeware(Cookies)),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )(createStore);
   // Create final store and subscribe router

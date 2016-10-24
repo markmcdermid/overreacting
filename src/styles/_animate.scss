@@ -31,6 +31,7 @@
 .animate--spin {
   animation-duration: 2s;
   animation: spin 2s infinite linear;
+  transform-origin: center;
 }
 
 .animate--bounce {

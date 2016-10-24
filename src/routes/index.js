@@ -7,12 +7,12 @@ import Layout from '../layouts/Layout';
 export default (store) => {
   const checkAuth = (nextState, replace) => {
     const state = store.getState();
-    state.auth.isAuthenticated && replace('/');
+    state.auth.token && replace('/');
   };
 
   const requireAuth = (nextState, replace) => {
     const state = store.getState();
-    !state.auth.isAuthenticated && replace('/login');
+    !state.auth.token && replace('/login');
   };
 
   return (

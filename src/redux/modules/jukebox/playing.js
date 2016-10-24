@@ -1,30 +1,14 @@
-import { apiGet } from '../../../helpers';
+import createActions from '../createActions';
+import { getThunk } from '../../../helpers';
 
-export const GET_PLAYING_REQUEST = 'GET_PLAYING_REQUEST';
-export const GET_PLAYING_SUCCESS = 'GET_PLAYING_SUCCESS';
-export const GET_PLAYING_FAILURE = 'GET_PLAYING_FAILURE';
+const { actionCreators, namedActions, constants } = createActions('getPlaying');
 
-// Action Creators
-const getPlayingRequest = () => ({ type: GET_PLAYING_REQUEST });
-const getPlayingSuccess = data => ({ type: GET_PLAYING_SUCCESS, data });
-const getPlayingFailure = message => ({ type: GET_PLAYING_FAILURE, message });
+// The thunk
 
-// Thunks
-const getPlaying = () => {
-  return (dispatch) => {
-    dispatch(getPlayingRequest());
-    return apiGet('/playing')
-    .then(result => result.json())
-    .then(json => dispatch(getPlayingSuccess(json)))
-    .catch(e => dispatch(getPlayingFailure(e)));
-  };
-};
+const getPlaying = getThunk(actionCreators, '/playing');
 
-// Actions
 export const actions = {
-  getPlayingRequest,
-  getPlayingSuccess,
-  getPlayingFailure,
+  ...namedActions,
   getPlaying
 };
 
@@ -40,18 +24,22 @@ const initialState = {
     start: new Date().getTime(),
     duration: 0
   },
-  isFetching: false
+  isFetching: false,
+  errorMsg: ''
 };
+
+const { REQUEST, SUCCESS, FAILURE } = constants;
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PLAYING_REQUEST: {
+    case REQUEST: {
       return {
         ...state,
         isFetching: true,
+        errorMsg: ''
       };
     }
-    case GET_PLAYING_SUCCESS: {
+    case SUCCESS: {
       const { queue, nowPlaying, currentCategory, time } = action.data;
       return {
         ...state,
@@ -62,10 +50,11 @@ const reducer = (state = initialState, action) => {
         time
       };
     }
-    case GET_PLAYING_FAILURE: {
+    case FAILURE: {
       return {
         ...state,
         isFetching: false,
+        errorMsg: action.errorMsg
       };
     }
     default:

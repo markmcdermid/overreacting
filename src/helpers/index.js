@@ -11,3 +11,28 @@ export const apiPost = (endPoint, body, customHeaders = {}) => {
 };
 
 export const apiGet = endPoint => fetch(`${SERVER_URL}${endPoint}`);
+
+// The thunk
+export const getThunk = (actions, endPoint) => {
+  return () => {
+    return (dispatch) => {
+      dispatch(actions.request());
+      return apiGet(endPoint)
+        .then(results => results.json())
+        .then(data => dispatch(actions.success(data)))
+        .catch(e => dispatch(actions.failure(e.message)));
+    };
+  };
+};
+
+export const postThunk = (actions, endPoint) => {
+  return (body) => {
+    return (dispatch) => {
+      dispatch(actions.request(body));
+      return apiPost(endPoint, body)
+        .then(results => results.json())
+        .then(json => dispatch(actions.success(json)))
+        .catch(e => dispatch(actions.failure(e.message)));
+    };
+  }
+};

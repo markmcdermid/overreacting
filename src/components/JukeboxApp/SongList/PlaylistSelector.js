@@ -6,26 +6,19 @@ import { actions as categoriesActions } from '../../../redux/modules/jukebox/cat
 
 class PlaylistSelector extends Component {
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.object).isRequired
+    categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getCategories: PropTypes.func.isRequired,
+    setCategory: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.getCategories();
-  }
-
-  getCategories = () => {
-    // TODO Refactor To Thunks
-    const { categoriesRequest, categoriesSuccess, categoriesFailure } = this.props;
-    categoriesRequest();
-    fetch('http://localhost:3001/categories')
-      .then(results => results.json())
-      .then(json => categoriesSuccess(json))
-      .catch(e => categoriesFailure(e));
+    props.getCategories();
   }
 
   handleChange = (e) => {
     console.log(e.target.value);
+    this.props.setCategory(e.target.value);
   }
 
   render() {
@@ -40,5 +33,4 @@ class PlaylistSelector extends Component {
 }
 
 const mapStateToProps = ({ jukebox: { categories: { items } } }) => ({ categories: items });
-const mapDispatchToProps = { ...categoriesActions };
-export default connect(mapStateToProps, mapDispatchToProps)(PlaylistSelector);
+export default connect(mapStateToProps, categoriesActions)(PlaylistSelector);

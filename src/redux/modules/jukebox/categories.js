@@ -1,37 +1,43 @@
-const CATEGORIES_REQUEST = 'CATEGORIES_REQUEST';
-const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
-const CATEGORIES_FAILURE = 'CATEGORIES_FAILURE';
+import createActions from '../createActions';
+import { getThunk, postThunk } from '../../../helpers';
 
-const categoriesRequest = () => ({ type: CATEGORIES_REQUEST });
-const categoriesSuccess = data => ({ type: CATEGORIES_SUCCESS, data });
-const categoriesFailure = () => ({ type: CATEGORIES_FAILURE });
+const getActions = createActions('getCategories');
+const setActions = createActions('setCategory');
+
+// The thunk
+
+const getCategories = getThunk(getActions.actionCreators, '/categories');
+const setCategory = postThunk(setActions.actionCreators, '/categories');
 
 export const actions = {
-  categoriesRequest,
-  categoriesSuccess,
-  categoriesFailure
+  ...getActions.namedActions,
+  ...setActions.namedActions,
+  setCategory,
+  getCategories
 };
 
 // Reducer
 const initialState = {
   items: [],
+  selected: '',
   isFetching: false
 };
 
+const { REQUEST, SUCCESS, FAILURE } = getActions.constants;
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case CATEGORIES_REQUEST:
+    case REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case CATEGORIES_SUCCESS:
+    case SUCCESS:
       return {
         ...state,
         items: action.data,
         isFetching: false,
       };
-    case CATEGORIES_FAILURE:
+    case FAILURE:
       return {
         ...state,
         isFetching: false,

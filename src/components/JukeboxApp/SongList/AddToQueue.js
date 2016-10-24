@@ -4,10 +4,8 @@ import { FaPlus, FaCheck } from 'react-icons/lib/fa';
 import { Td } from '../common/Table';
 
 class AddToQueue extends Component {
-  isInQueue = (id) => {
-    const { queue } = this.props;
-    return false;
-  }
+  isInQueue = id => this.props.queue.find(q => q.id === id) !== undefined;
+
   render() {
     const { addToQueue, id } = this.props;
     const isInQueue = this.isInQueue(id);
