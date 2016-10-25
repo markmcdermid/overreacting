@@ -16,8 +16,8 @@ const SearchTable = (props) => {
       {results.map(r => (
         <tr key={r.id}>
           <Td><img className="table__img" alt="" src="" />{r.title}</Td>
-          <Td>{r.artists[0].name}</Td>
-          <AddToQueue addToQueue={addToQueue} id={r.id} added={false} />
+          <Td>{r.artist}</Td>
+          <AddToQueue addToQueue={addToQueue} id={r.id}/>
         </tr>
       ))}
     </Table>
@@ -29,5 +29,4 @@ SearchTable.propTypes = {
   results: PropTypes.arrayOf(PropTypes.element).isRequired
 };
 
-const mapStateToProps = ({ auth: { token } }) => ({ token });
-export default connect(mapStateToProps, addToQueueActions)(SearchTable);
+export default connect(null, addToQueueActions)(SearchTable);

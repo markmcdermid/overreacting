@@ -21,9 +21,9 @@ class RequestASong extends Component {
       <section className="component--section request">
         <div className="component__inner">
           <h1 className="h1 h--caps">Request A Song</h1>
-          <form className="form flex" onSubmit={this.handleSubmit}>
+          <form className="flex" onSubmit={this.handleSubmit}>
             <input
-              className="form__input no-right-br"
+              className="no-right-br"
               onChange={this.handleInputChange}
               placeholder="Search for a track..."
               value={this.state.searchText}
