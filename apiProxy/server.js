@@ -12,6 +12,19 @@ const getImgUrl = (id, size) => {
   return `https://resources.wimpmusic.com/images/${id.replace(/-/g, '/')}/${res}x${res}.jpg`;
 };
 
+const mapSearchItem = (item) => {
+  const cover = item.album.cover;
+  const obj = {
+    coverSm: getImgUrl(cover, 'sm'),
+    coverLg: getImgUrl(cover),
+    id: item.id,
+    title: item.title,
+    artist: item.artists[0].name
+  };
+
+  return obj;
+};
+
 const mapTrack = (track) => {
   const {
     id,
@@ -76,6 +89,8 @@ app.post('/search', ({ body }, res) => {
 
   request(opts, (error, response, resBody) => {
     if (!error && response.statusCode === 200) {
+      var items = resBody.tracks.items;
+      console.log(items);
       res.send(resBody);
     } else {
       res.status(400).send();
@@ -89,6 +104,17 @@ app.get('/categories', (req, res) => {
   });
 });
 
+app.post('/add', ({ body }, res) => {
+  const opts = {
+    uri: 'http://jukebox.leighton.com/api/jukebox/add',
+    method: 'POST',
+    json: body
+  };
+
+  request(opts, (error, apiRes) =>
+    (!error && apiRes.statusCode === 200) ? res.send(apiRes.body) : res.status(400).send());
+});
+
 app.post('/categories', ({ body }, res) => {
   const opts = {
     uri: 'http://jukebox.leighton.com/api/jukebox/categories',
@@ -96,9 +122,8 @@ app.post('/categories', ({ body }, res) => {
     json: body
   };
 
-  request(opts, (error, apiRes) => {
-    return (!error && apiRes.statusCode === 200) ? res.send(apiRes.body) : res.status(400).send();
-  });
+  request(opts, (error, apiRes) =>
+    (!error && apiRes.statusCode === 200) ? res.send(apiRes.body) : res.status(400).send());
 });
 
 app.listen(3001, () => console.log('Reverse Proxy Listening on 3001'));

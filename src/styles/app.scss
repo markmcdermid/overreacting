@@ -220,7 +220,7 @@ main {
     color: $greyText;
   }
 
-  img {
+  &__img {
     height: 37rem;
     margin-right: 3rem;
     width: auto;
@@ -365,20 +365,17 @@ main {
   font-size: 3.5rem;
 }
 
+.SongDetails--next {
+  display: none;
+}
+
 .Jukebox--tv {
-  header {
-    display: none;
-  }
   .now-playing {
     height: 100%;
 
     .SongDetails:not(.SongDetails--next){
       flex-grow: 1;
       height: 100%;
-      img {
-        height: 100%;
-        width: auto;
-      }
     }
 
     .component__inner {
@@ -388,6 +385,18 @@ main {
     }
   }
 }
+
+.img {
+  width: 100%;
+  height: auto;
+
+  &--full-height {
+    width: auto;
+    height: 100%;
+  }
+}
+
+
 
 .select-wrap {
   position: relative;

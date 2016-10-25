@@ -9,6 +9,7 @@ class AddToQueue extends Component {
   render() {
     const { addToQueue, id } = this.props;
     const isInQueue = this.isInQueue(id);
+
     return (
       <Td className={isInQueue ? '' : 'table__td--lowlight'}>
         <button onClick={() => addToQueue(id)}>
@@ -26,6 +27,6 @@ AddToQueue.propTypes = {
   queue: PropTypes.arrayOf(PropTypes.object)
 };
 
-const mapStateToProps = ({ jukebox: queue }) => ({ queue });
+const mapStateToProps = ({ jukebox: { playing: { queue } } }) => ({ queue });
 
 export default connect(mapStateToProps)(AddToQueue);

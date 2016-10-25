@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import Header from '../components/JukeboxApp/Header/Header';
 
-class Layout extends Component {
-  componentWillReceiveProps(nextProps) {
-    const { push } = this.props;
-    (!this.props.token && nextProps.token) && push('/');
-    (this.props.token && !nextProps.token) && push('/login');
-  }
+const { push } = routeActions;
 
+class Layout extends Component {
+  static propTypes = {
+    push: PropTypes.func.isRequired,
+    token: PropTypes.string
+  };
+  componentWillReceiveProps(nextProps) {
+    !this.props.token && nextProps.token && this.props.push('/');
+    this.props.token && !nextProps.token && this.props.push('/login');
+  }
   render() {
-    const { children, location: { pathname } } = this.props;
     return (
       <div>
-        <Header currentRoute={pathname} />
+        <Header />
         <main>
-          { children }
+          {this.props.children}
         </main>
       </div>
-    )
+    );
   }
 }
 const mapStateToProps = ({ auth: { token } }) => ({ token });
-const mapDispatchToProps = { push: routeActions.push };
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps, { push })(Layout);

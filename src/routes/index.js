@@ -15,14 +15,17 @@ export default (store) => {
     !state.auth.token && replace('/login');
   };
 
+  const JukeboxTV = () => <JukeboxApp tv />;
+
   return (
     <Route path="/" component={Layout}>
       <Route onEnter={requireAuth}>
         <IndexRoute component={JukeboxApp} />
+        <Route path="tv" component={JukeboxTV} />
       </Route>
       <Route onEnter={checkAuth}>
         <Route path="login" component={Login} />
       </Route>
     </Route>
   );
-}
+};
