@@ -1,31 +1,33 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
+import Admin from '../components/JukeboxApp/AdminPanel/AdminPanel';
 import JukeboxApp from '../components/JukeboxApp/JukeboxApp';
 import Login from '../components/JukeboxApp/Login';
 import Layout from '../layouts/Layout';
 
 export default (store) => {
   const checkAuth = (nextState, replace) => {
-    const state = store.getState();
-    state.auth.token && replace('/');
+    store.getState().auth.token && replace('/');
   };
 
   const requireAuth = (nextState, replace) => {
-    const state = store.getState();
-    !state.auth.token && replace('/login');
+    !store.getState().auth.token && replace('/login');
+  };
+
+  const requireAdmin = (nextState, replace) => {
+    !store.getState().auth.token && replace('/');
   };
 
   const JukeboxTV = () => <JukeboxApp tv />;
-
+  console.log('asdf');
   return (
     <Route path="/" component={Layout}>
       <Route onEnter={requireAuth}>
         <IndexRoute component={JukeboxApp} />
         <Route path="tv" component={JukeboxTV} />
       </Route>
-      <Route onEnter={checkAuth}>
-        <Route path="login" component={Login} />
-      </Route>
+      <Route onEnter={requireAdmin} path="admin" component={Admin} />
+      <Route onEnter={checkAuth} path="login" component={Login} />
     </Route>
   );
 };
