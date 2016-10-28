@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { IoPerson, IoMicC, IoMusicNote } from 'react-icons/lib/io';
 
@@ -9,10 +8,10 @@ const SongDetails = (props) => {
   const compClass = classNames('SongDetails flex', className, {
     'SongDetails--next': next
   });
-  const imgClass = classNames('img', {
+  const imgClass = classNames({
     SongDetails__img: !next,
     'img--full-height': next
-  })
+  });
   return (
     <div className={compClass} >
       { next && <h1 className="h1 h--caps">Next</h1>}
@@ -48,5 +47,4 @@ SongDetails.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   className: PropTypes.string
 };
-const mapStateToProps = ({ jukebox: { playing: { nowPlaying: song} } }) => ({ song });
-export default connect(mapStateToProps)(SongDetails);
+export default SongDetails;

@@ -12,7 +12,7 @@ class AddToQueue extends Component {
 
     return (
       <Td className={isInQueue ? '' : 'table__td--lowlight'}>
-        <button onClick={() => addToQueue(id)}>
+        <button onClick={() => addToQueue({ id })}>
           { isInQueue ? <FaCheck className="table__td__icon" /> : <FaPlus className="table__td__icon" />}
           <span className="text-underline">{isInQueue ? 'Added' : 'Add To Queue'}</span>
         </button>
@@ -23,7 +23,7 @@ class AddToQueue extends Component {
 
 AddToQueue.propTypes = {
   addToQueue: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   queue: PropTypes.arrayOf(PropTypes.object)
 };
 

@@ -17,7 +17,6 @@ class PlaylistSelector extends Component {
   }
 
   handleChange = (e) => {
-    console.log(e.target.value);
     this.props.setCategory(e.target.value);
   }
 

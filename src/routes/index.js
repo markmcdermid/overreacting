@@ -7,19 +7,18 @@ import Layout from '../layouts/Layout';
 
 export default (store) => {
   const checkAuth = (nextState, replace) => {
-    store.getState().auth.token && replace('/');
+    store.getState().auth.auth.token && replace('/');
   };
 
   const requireAuth = (nextState, replace) => {
-    !store.getState().auth.token && replace('/login');
+    !store.getState().auth.auth.token && replace('/login');
   };
 
   const requireAdmin = (nextState, replace) => {
-    !store.getState().auth.token && replace('/');
+    !store.getState().auth.auth.token && replace('/');
   };
 
   const JukeboxTV = () => <JukeboxApp tv />;
-  console.log('asdf');
   return (
     <Route path="/" component={Layout}>
       <Route onEnter={requireAuth}>

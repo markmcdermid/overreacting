@@ -3,6 +3,7 @@ import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
 import Header from '../components/JukeboxApp/Header/Header';
 
+import { actions as oauthActions } from '../redux/modules/auth/oauth';
 const { push } = routeActions;
 
 class Layout extends Component {
@@ -10,10 +11,19 @@ class Layout extends Component {
     push: PropTypes.func.isRequired,
     token: PropTypes.string
   };
+
+  constructor(props) {
+    super(props);
+    console.log(props);
+    props.setupGoogleLogin();
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log(this.props);
     !this.props.token && nextProps.token && this.props.push('/');
     this.props.token && !nextProps.token && this.props.push('/login');
   }
+
   render() {
     return (
       <div>
@@ -25,5 +35,9 @@ class Layout extends Component {
     );
   }
 }
-const mapStateToProps = ({ auth: { token } }) => ({ token });
-export default connect(mapStateToProps, { push })(Layout);
+const mapStateToProps = ({ auth: { oauth: { didFetch }, auth: { token } } }) => ({ token, didFetchOAuth: didFetch });
+const mapDispatchToProps = {
+  push,
+  ...oauthActions
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

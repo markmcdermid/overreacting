@@ -5,7 +5,7 @@ const { actionCreators, namedActions, constants } = createActions('getPlaying');
 
 // The thunk
 
-const getPlaying = getThunk(actionCreators, '/playing');
+const getPlaying = getThunk(actionCreators, '/poll');
 
 export const actions = {
   ...namedActions,

@@ -24,7 +24,7 @@ class JukeboxApp extends Component {
     clearInterval(this.pollPlaying);
   }
 
-  pollPlaying = setInterval(this.props.getPlaying, 5000);
+  pollPlaying = setInterval(this.props.getPlaying, 1000);
 
   render() {
     const { tv } = this.props;
@@ -40,7 +40,7 @@ class JukeboxApp extends Component {
 
     return (
       <div className={appClass}>
-        <NowPlaying tv />
+        <NowPlaying tv={tv} />
         {offOnTv}
         <Footer />
       </div>

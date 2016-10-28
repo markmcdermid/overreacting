@@ -8,8 +8,10 @@ const NowPlaying = props => (
     <div className="component__inner">
       <h1 className="h1 h--caps">Now Playing</h1>
 
-      <SongDetails />
-      { (props.tv && props.queue[0]) && <SongDetails next song={props.queue[0]} /> }
+      <SongDetails song={props.song}>
+        { props.queue[0] && <SongDetails next song={props.queue[0]} /> }
+      </SongDetails>
+
     </div>
   </section>
 );
@@ -17,7 +19,7 @@ const NowPlaying = props => (
 NowPlaying.propTypes = {
   queue: PropTypes.arrayOf(PropTypes.object),
   tv: PropTypes.bool
-};
+}
 
-const mapStateToProps = ({ jukebox: { playing: { queue } } }) => ({ queue });
+const mapStateToProps = ({ jukebox: { playing: { queue, nowPlaying: song } } }) => ({ queue, song });
 export default connect(mapStateToProps)(NowPlaying);

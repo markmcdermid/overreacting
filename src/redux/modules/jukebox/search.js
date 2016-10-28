@@ -16,7 +16,7 @@ const search = (searchText) => {
   return (dispatch) => {
     dispatch(searchRequest(searchText));
     const body = { query: searchText };
-    return apiPost('/search', body)
+    return apiPost('/tidySearch', body)
       .then(results => results.json())
       .then(json => dispatch(searchSuccess(json)))
       .catch(e => dispatch(searchFailure(e)));
@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
     case SEARCH_SUCCESS:
       return {
         ...state,
-        results: action.data.tracks.items,
+        results: action.data,
         isFetching: false,
       };
     case SEARCH_FAILURE:

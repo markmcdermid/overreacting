@@ -15,7 +15,7 @@ export default function (thunkName) {
   const successTitle = `${thunkName}Success`;
   const success = data => ({ type: SUCCESS, data });
   const failureTitle = `${thunkName}Failure`;
-  const failure = errorMsg => ({ type: FAILURE, errorMsg });
+  const failure = error => ({ type: FAILURE, error });
 
   const constants = {
     REQUEST,
@@ -33,7 +33,7 @@ export default function (thunkName) {
     [requestTitle]: request,
     [successTitle]: success,
     [failureTitle]: failure
-  }
+  };
 
   return { actionCreators, constants, namedActions };
 }

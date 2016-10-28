@@ -1,31 +1,13 @@
-import { apiPost } from '../../../helpers';
+import createActions from '../createActions';
+import { postThunk } from '../../../helpers';
 
-export const ADD_TO_QUEUE_REQUEST = 'ADD_TO_QUEUE_REQUEST';
-export const ADD_TO_QUEUE_SUCCESS = 'ADD_TO_QUEUE_SUCCESS';
-export const ADD_TO_QUEUE_FAILURE = 'ADD_TO_QUEUE_FAILURE';
+const addActions = createActions('addToQueue');
 
-// Action Creators
-const addToQueueRequest = () => ({ type: ADD_TO_QUEUE_REQUEST });
-const addToQueueSuccess = data => ({ type: ADD_TO_QUEUE_SUCCESS, data });
-const addToQueueFailure = message => ({ type: ADD_TO_QUEUE_FAILURE, message });
-
-// Thunks
-function addToQueue(id) {
-  return (dispatch, getState) => {
-    const headers = { 'x-token': getState().auth.token };
-    dispatch(addToQueueRequest(id));
-    return apiPost('/add', { id }, getState, headers)
-      .then(results => results.json())
-      .then(json => dispatch(addToQueueSuccess(json)))
-      .catch(e => dispatch(addToQueueFailure(e)));
-  };
-}
+const addToQueue = postThunk(addActions.actionCreators, '/newadd');
 
 // Actions
 export const actions = {
-  addToQueueRequest,
-  addToQueueSuccess,
-  addToQueueFailure,
+  ...addActions.namedActions,
   addToQueue
 };
 
@@ -38,17 +20,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_QUEUE_REQUEST:
+    case addActions.constants.REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case ADD_TO_QUEUE_SUCCESS:
+    case addActions.constants.SUCCESS:
       return {
         ...state,
         isFetching: false,
       };
-    case ADD_TO_QUEUE_FAILURE:
+    case addActions.constants.FAILURE:
       return {
         ...state,
         isFetching: false,

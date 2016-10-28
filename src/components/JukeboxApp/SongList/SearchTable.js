@@ -15,7 +15,7 @@ const SearchTable = (props) => {
     >
       {results.map(r => (
         <tr key={r.id}>
-          <Td><img className="table__img" alt="" src="" />{r.title}</Td>
+          <Td><img className="table__img" alt="" src={r.coverSm} />{r.title}</Td>
           <Td>{r.artist}</Td>
           <AddToQueue addToQueue={addToQueue} id={r.id}/>
         </tr>
@@ -26,7 +26,6 @@ const SearchTable = (props) => {
 
 SearchTable.propTypes = {
   addToQueue: PropTypes.func.isRequired,
-  results: PropTypes.arrayOf(PropTypes.element).isRequired
+  results: PropTypes.arrayOf(PropTypes.object).isRequired
 };
-
 export default connect(null, addToQueueActions)(SearchTable);
