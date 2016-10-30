@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import QueueTable from './QueueTable';
-import PlaylistSelector from './PlaylistSelector';
+import CategorySelect from './CategorySelect';
 
 const Queue = ({ queue, categories }) => {
 
@@ -11,7 +11,7 @@ const Queue = ({ queue, categories }) => {
         <h1 className="h1 overflow-ellipsis h--caps h--no-margin flex-grow">
           {`Queue: (${queue.length})`}
         </h1>
-        <PlaylistSelector categories={categories} />
+        <CategorySelect categories={categories} />
       </div>
       <QueueTable className="SongList__table" queue={queue} />
     </div>

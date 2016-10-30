@@ -18,6 +18,7 @@ export default (store) => {
     !store.getState().auth.auth.token && replace('/');
   };
 
+
   const JukeboxTV = () => <JukeboxApp tv />;
   return (
     <Route path="/" component={Layout}>

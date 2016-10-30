@@ -4,7 +4,7 @@ import SelectWrap from '../common/SelectWrap';
 
 import { actions as categoriesActions } from '../../../redux/modules/jukebox/categories';
 
-class PlaylistSelector extends Component {
+class CategorySelect extends Component {
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.object).isRequired,
     getCategories: PropTypes.func.isRequired,
@@ -17,11 +17,10 @@ class PlaylistSelector extends Component {
     props.getCategories();
   }
 
-  handleChange = (e) => {
-    this.props.setCategory(e.target.value);
-  }
-
+  // TODO: Change to ID
   isSelected = name => this.props.selectedPlaylist === name;
+  handleChange = e => this.props.setCategory(e.target.value)
+
 
   render() {
     return (
@@ -37,4 +36,4 @@ class PlaylistSelector extends Component {
 }
 
 const mapStateToProps = ({ jukebox: { categories: { items, selected } } }) => ({ categories: items, selected });
-export default connect(mapStateToProps, categoriesActions)(PlaylistSelector);
+export default connect(mapStateToProps, categoriesActions)(CategorySelect);

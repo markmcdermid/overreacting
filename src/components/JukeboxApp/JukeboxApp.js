@@ -6,6 +6,7 @@ import Footer from './Footer/Footer';
 import NowPlaying from './NowPlaying/NowPlaying';
 import RequestASong from './RequestASong/RequestASong';
 import SongList from './SongList/SongList';
+import Header from './Header/Header';
 
 import { actions as playingActions } from '../../redux/modules/jukebox/playing';
 
@@ -31,17 +32,20 @@ class JukeboxApp extends Component {
     const appClass = classNames('Jukebox', {
       'Jukebox--tv': tv
     });
+    const header = tv || <Header />
 
-    const offOnTv = tv ||
-      <div>
-        <RequestASong />
-        <SongList />
-      </div>;
+    const tableSection = tv || (
+        <div>
+          <RequestASong />
+          <SongList />
+        </div>
+      );
 
     return (
       <div className={appClass}>
+        {header}
         <NowPlaying tv={tv} />
-        {offOnTv}
+        {tableSection}
         <Footer />
       </div>
     );
