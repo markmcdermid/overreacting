@@ -26,6 +26,10 @@ button {
     outline: 0;
   }
 
+  &[disabled] {
+    background: $greyText;
+  }
+
   &--success {
     background: adjust_hue($actionColor, 180deg);
   }

@@ -14,12 +14,10 @@ class Layout extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
     props.setupGoogleLogin();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props);
     !this.props.token && nextProps.token && this.props.push('/');
     this.props.token && !nextProps.token && this.props.push('/login');
   }
@@ -28,9 +26,7 @@ class Layout extends Component {
     return (
       <div>
         <Header />
-        <main>
-          {this.props.children}
-        </main>
+        <main children={this.props.children} />
       </div>
     );
   }

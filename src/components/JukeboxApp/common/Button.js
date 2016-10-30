@@ -1,18 +1,28 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
-const Button = ({ children, className, text, iconLeft, handleClick }) => (
-  <button onClick={() => handleClick()} className={`${className} btn`}>
-    {iconLeft && <span className="btn__icon btn__icon--left">{children}</span>}
-    <span>{text}Asdf</span>
-    {iconLeft || <span className="btn__icon">{children}</span>}
-  </button>
-);
+const Button = ({ className, text, icon, iconLeft, handleClick, disabled }) => {
+  const opts = {
+    className: classNames('btn', className),
+    disabled,
+    onClick: handleClick
+  };
+  return (
+    <button {...opts} >
+      {(icon && iconLeft) && <span className="btn__icon btn__icon--left">{icon}</span>}
+      <span>{text}</span>
+      {(icon && iconLeft) || <span className="btn__icon">{icon}</span>}
+    </button>
+  );
+};
 
 Button.propTypes = {
-  children: PropTypes.element,
   className: PropTypes.string,
   text: PropTypes.string.isRequired,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  iconLeft: PropTypes.bool,
+  icon: PropTypes.element
 };
 
 export default Button;

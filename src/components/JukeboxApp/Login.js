@@ -5,19 +5,18 @@ import { actions as authActions } from '../../redux/modules/auth/auth';
 import Button from './common/Button';
 
 class Login extends Component {
-
-  handleClick = () => {
-    console.log('handle');
-    this.props.login();
-  }
   render() {
     return (
-      <div>
-        <Button handleClick={this.handleClick} text="Login With Google" />
-      </div>
+      <Button
+        text={this.props.didFetch ? 'Login With Google' : 'Loading...'}
+        disabled={!this.props.didFetch}
+        icon={<IoSocialGoogle className="icon--m" />}
+        handleClick={this.props.login}
+        iconLeft
+      />
     );
   }
 }
 
-const mapStateToProps = ({ auth: { isFetching } }) => ({ isFetching });
+const mapStateToProps = ({ auth: { oauth: { didFetch } } }) => ({ didFetch });
 export default connect(mapStateToProps, authActions)(Login);

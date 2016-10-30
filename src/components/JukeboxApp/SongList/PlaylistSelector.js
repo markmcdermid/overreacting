@@ -8,7 +8,8 @@ class PlaylistSelector extends Component {
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.object).isRequired,
     getCategories: PropTypes.func.isRequired,
-    setCategory: PropTypes.func.isRequired
+    setCategory: PropTypes.func.isRequired,
+    selectedPlaylist: PropTypes.string
   };
 
   constructor(props) {
@@ -20,16 +21,20 @@ class PlaylistSelector extends Component {
     this.props.setCategory(e.target.value);
   }
 
+  isSelected = name => this.props.selectedPlaylist === name;
+
   render() {
     return (
       <SelectWrap className="PlayListSelector">
         <select onChange={this.handleChange}>
-          { this.props.categories.map(p => (<option data-id={p._id} key={p._id}>{p.name}</option>)) }
+          {this.props.categories.map(({ _id: id, name }) =>
+            <option selected={this.isSelected(name)} key={id}>{name}</option>
+          )}
         </select>
       </SelectWrap>
     );
   }
 }
 
-const mapStateToProps = ({ jukebox: { categories: { items } } }) => ({ categories: items });
+const mapStateToProps = ({ jukebox: { categories: { items, selected } } }) => ({ categories: items, selected });
 export default connect(mapStateToProps, categoriesActions)(PlaylistSelector);
