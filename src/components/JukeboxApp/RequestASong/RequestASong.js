@@ -29,7 +29,7 @@ class RequestASong extends Component {
               value={this.state.searchText}
               type="text"
             />
-            <Button className="no-left-br" text="Search" iconLeft><IoIosSearchStrong /></Button>
+            <Button className="no-left-br" text="Search" iconLeft icon={<IoIosSearchStrong />}></Button>
           </form>
         </div>
       </section>

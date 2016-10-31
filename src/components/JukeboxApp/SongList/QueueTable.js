@@ -22,7 +22,7 @@ const QueueTable = props => (
 
 QueueTable.propTypes = {
   queue: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     artist: PropTypes.string.isRequired,
     coverSm: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

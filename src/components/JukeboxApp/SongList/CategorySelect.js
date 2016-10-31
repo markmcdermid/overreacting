@@ -18,16 +18,14 @@ class CategorySelect extends Component {
   }
 
   // TODO: Change to ID
-  isSelected = name => this.props.selectedPlaylist === name;
   handleChange = e => this.props.setCategory(e.target.value)
-
-
+  
   render() {
     return (
       <SelectWrap className="PlayListSelector">
-        <select onChange={this.handleChange}>
+        <select value={this.props.selectedPlaylist} onChange={this.handleChange}>
           {this.props.categories.map(({ _id: id, name }) =>
-            <option selected={this.isSelected(name)} key={id}>{name}</option>
+            <option key={id}>{name}</option>
           )}
         </select>
       </SelectWrap>

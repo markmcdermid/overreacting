@@ -368,11 +368,16 @@ main {
 }
 
 .Jukebox--tv {
+  height: calc(100vh - 7.7rem);
+
   .now-playing {
-    height: 100%;
 
     .SongDetails:not(.SongDetails--next){
       flex-grow: 1;
+      height: 100%;
+    }
+
+    .SongDetails__img {
       height: 100%;
     }
 
@@ -403,6 +408,7 @@ main {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: $bgLighter;
+    border: 1px solid $greyText;
     border-radius: 0;
     color: $lightText;
     font-size: 1.6rem;

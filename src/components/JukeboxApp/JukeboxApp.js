@@ -32,7 +32,7 @@ class JukeboxApp extends Component {
     const appClass = classNames('Jukebox', {
       'Jukebox--tv': tv
     });
-    const header = tv || <Header />
+    const header = tv || <Header />;
 
     const tableSection = tv || (
         <div>
@@ -44,8 +44,10 @@ class JukeboxApp extends Component {
     return (
       <div className={appClass}>
         {header}
-        <NowPlaying tv={tv} />
-        {tableSection}
+        <main>
+          <NowPlaying tv={tv} />
+          {tableSection}
+        </main>
         <Footer />
       </div>
     );
