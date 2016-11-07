@@ -5,10 +5,8 @@ export const apiPost = (endPoint, body, customHeaders = {}) => {
   const opts = {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: { ...customHeaders, ...defaultHeaders }
+    headers: { ...defaultHeaders, ...customHeaders }
   };
-
-  console.log(opts);
   return fetch(`${SERVER_URL}${endPoint}`, opts);
 };
 
@@ -27,7 +25,6 @@ export const getThunk = (actions, endPoint) => () => {
 
 export const postThunk = (actions, endPoint) => (body) => {
   return (dispatch, getState) => {
-    console.log(body);
     dispatch(actions.request(body));
     const headers = { 'x-token': getState().auth.auth.token };
     return apiPost(endPoint, body, headers)

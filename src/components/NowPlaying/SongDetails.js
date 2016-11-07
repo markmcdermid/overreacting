@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { IoPerson, IoMicC, IoMusicNote } from 'react-icons/lib/io';
+
+import IoPerson from 'react-icons/lib/io/person';
+import IoMicC from 'react-icons/lib/io/mic-c';
+import IoMusicNote from 'react-icons/lib/io/music-note';
 
 
 const SongDetails = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IoAlertCircled } from 'react-icons/lib/io';
+import IoAlertCircled from 'react-icons/lib/io/alert-circled';
 
 const CantConnect = () => (
   <div className="cant-connect">

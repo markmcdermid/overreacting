@@ -8,7 +8,7 @@ import RequestASong from './RequestASong/RequestASong';
 import SongList from './SongList/SongList';
 import Header from './Header/Header';
 
-import { actions as playingActions } from '../../redux/modules/jukebox/playing';
+import { actions as playingActions } from 'redux/modules/jukebox/playing';
 
 class JukeboxApp extends Component {
   static propTypes = {

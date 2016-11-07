@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { IoIosSearchStrong } from 'react-icons/lib/io';
-import { actions as searchActions } from '../../../redux/modules/jukebox/search';
+import IoIosSearchStrong from 'react-icons/lib/io/ios-search-strong';
+import { actions as searchActions } from 'redux/modules/jukebox/search';
 
 import Button from '../common/Button';
 
@@ -21,7 +21,7 @@ class RequestASong extends Component {
       <section className="component--section request">
         <div className="component__inner">
           <h1 className="h1 h--caps">Request A Song</h1>
-          <form className="flex" onSubmit={this.handleSubmit}>
+          <form className="flex flex--align-items" onSubmit={this.handleSubmit}>
             <input
               className="no-right-br"
               onChange={this.handleInputChange}

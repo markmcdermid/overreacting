@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { IoIosCloseEmpty } from 'react-icons/lib/io';
+import IoIosCloseEmpty from 'react-icons/lib/io/ios-close-empty';
 import $ from 'jquery';
 
 import SearchTable from './SearchTable';
 
-import { actions as searchActions } from '../../../redux/modules/jukebox/search';
+import { actions as searchActions } from 'redux/modules/jukebox/search';
 
 
 function scrollTo(element, duration = 1000) {

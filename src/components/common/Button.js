@@ -3,15 +3,16 @@ import classNames from 'classnames';
 
 const Button = ({ className, text, icon, iconLeft, handleClick, disabled }) => {
   const opts = {
-    className: classNames('btn', className),
     disabled,
     onClick: handleClick
   };
   return (
     <button {...opts} >
-      {(icon && iconLeft) && <span className="btn__icon btn__icon--left">{icon}</span>}
-      <span>{text}</span>
-      {(icon && iconLeft) || <span className="btn__icon">{icon}</span>}
+      <div className={classNames('btn', className)}>
+        {(icon && iconLeft) && <span className="btn__icon btn__icon--left">{icon}</span>}
+        <span>{text}</span>
+        {(icon && iconLeft) || <span className="btn__icon">{icon}</span>}
+      </div>
     </button>
   );
 };

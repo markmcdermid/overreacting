@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { FaPlus, FaCheck } from 'react-icons/lib/fa';
-import { Td } from '../common/Table';
+import FaPlus from 'react-icons/lib/fa/plus';
+import FaCheck from 'react-icons/lib/fa/check';
+import { Td } from 'components/common/Table';
 
 class AddToQueue extends Component {
   isInQueue = id => this.props.queue.find(q => q.id === id) !== undefined;

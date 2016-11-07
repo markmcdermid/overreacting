@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Table, { Td } from '../common/Table';
+import Table, { Td } from 'components/common/Table';
 
 const QueueTable = props => (
   <Table

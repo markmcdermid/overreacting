@@ -1,8 +1,7 @@
 import React from 'react';
+import IoIosArrowDown from 'react-icons/lib/io/ios-arrow-down';
 
-import { IoIosArrowDown } from 'react-icons/lib/io';
-
-const SelectWrap = ({className, children}) => {
+const SelectWrap = ({ className, children }) => {
   return (
     <div className={className + ' select-wrap'}>
       { children }

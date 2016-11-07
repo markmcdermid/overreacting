@@ -6,11 +6,11 @@ const Table = ({ widths, headings, children, inverse, className }) => {
   return (
     <table className={`table ${className || ''} ${inverse ? 'table--inverse' : ''}`}>
       <colgroup>
-        { widths.map((w, i) => <col key={i} width={`${(100 / 12) * w}%`}/>)}
+        { widths.map((w, i) => <col key={i} width={`${(100 / 12) * w}%`} />)}
       </colgroup>
       <thead>
       <tr>
-        { headings.map((h, i) => <th key={i} className='table__th'>{h}</th>)}
+        { headings.map((h, i) => <th key={i} className="table__th">{h}</th>)}
       </tr>
       </thead>
       <tbody>

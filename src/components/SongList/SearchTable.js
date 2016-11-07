@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Table, { Td } from '../common/Table';
 import AddToQueue from './AddToQueue';
-import { actions as addToQueueActions } from '../../../redux/modules/jukebox/addToQueue';
+import { actions as addToQueueActions } from 'redux/modules/jukebox/addToQueue';
 
 const SearchTable = (props) => {
   const { results, addToQueue } = props;

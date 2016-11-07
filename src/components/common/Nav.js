@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { IoIosMonitorOutline, IoIosLockedOutline } from 'react-icons/lib/io';
-import { MdPlaylistAdd } from 'react-icons/lib/md';
+import IoIosMonitorOutline from 'react-icons/lib/io/ios-monitor-outline';
+import IoIosLockedOutline from 'react-icons/lib/io/ios-locked-outline';
+import MdPlaylistAdd from 'react-icons/lib/md/playlist-add';
 
 const Nav = () => (
   <nav className="nav">

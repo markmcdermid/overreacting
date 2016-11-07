@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { routeActions } from 'redux-simple-router';
 import { connect } from 'react-redux';
-import Header from '../components/JukeboxApp/Header/Header';
+import Header from '../components/Header/Header';
 
 import { actions as oauthActions } from '../redux/modules/auth/oauth';
 const { push } = routeActions;

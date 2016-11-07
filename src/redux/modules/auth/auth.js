@@ -8,7 +8,6 @@ const getLocalExpire = (first, expiresAt) => {
 };
 
 export const login = () => (dispatch) => {
-  console.log('login');
   const auth2 = window.gapi.auth2.getAuthInstance();
   dispatch(request());
   auth2.signIn()
