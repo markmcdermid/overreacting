@@ -327,11 +327,9 @@ main {
   &--xl {
     font-size: 5.4rem;
   }
-
   &--xxl {
     font-size: 10rem;
   }
-
   &--xxxl {
     font-size: 20rem;
   }
@@ -438,6 +436,24 @@ main {
     position: absolute;
     right: 0;
     top: 0;
+  }
+}
+
+.LoginButton {
+  &__main {
+    height: 100%;
+  }
+}
+
+.wow-guy {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+
+  &--active {
+    transform: translateX(0);
   }
 }
 

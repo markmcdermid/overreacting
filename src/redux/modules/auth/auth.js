@@ -3,9 +3,10 @@ import createActions from '../createActions';
 const loginActions = createActions('login');
 const { request, success, failure } = loginActions.actionCreators;
 
-const getLocalExpire = (first, expiresAt) => {
-  return expiresAt + (new Date().getTime() - first);
-};
+const LOGIN_ANIMATE = 'LOGIN_ANIMATE';
+const animate = () => ({ type: LOGIN_ANIMATE });
+
+const getLocalExpire = (first, expiresAt) => expiresAt + (new Date().getTime() - first);
 
 export const login = () => (dispatch) => {
   const auth2 = window.gapi.auth2.getAuthInstance();
@@ -39,7 +40,10 @@ export const login = () => (dispatch) => {
         expires
       };
       localStorage.setItem('token-info', JSON.stringify(info));
-      dispatch(success(token));
+      dispatch(animate());
+      setTimeout(() => {
+        dispatch(success(token));
+      }, 2000);
     }, (err) => {
       dispatch(failure(err));
     });
@@ -74,21 +78,29 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_ANIMATE:
+      return {
+        ...state,
+        isAnimating: true
+      };
     case loginActions.constants.REQUEST:
       return {
         ...state,
         isFetching: true,
+        isAnimating: false
       };
     case loginActions.constants.SUCCESS:
       return {
         ...state,
         isFetching: false,
         token: action.data.tokenId,
+        isAnimating: false
       };
     case loginActions.constants.FAILURE:
       return {
         ...state,
         isFetching: false,
+        isAnimating: false
       };
     default:
       return state;

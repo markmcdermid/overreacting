@@ -23,11 +23,7 @@ class Layout extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return this.props.children;
   }
 }
 const mapStateToProps = ({ auth: { oauth: { didFetch }, auth: { token } } }) => ({ token, didFetchOAuth: didFetch });

@@ -1,6 +1,7 @@
 $lightText: #fff;
 $greyText: #a0a0a0;
 $actionColor: #d0003e;
+$actionLight: lighten(desaturate($actionColor, 22%), 6%);
 $actionDark: #ce0040;
 $darkest: #000;
 
